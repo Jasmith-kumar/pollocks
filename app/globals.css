@@ -1,0 +1,135 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+  
+  /* Brand Colors - Pollocks */
+  --pollocks-blue: #6ec8f0;
+  --pollocks-blue-dark: #3a9cdb;
+  --pollocks-blue-light: #a0e0f8;
+  --pollocks-navy: #0f2744;
+  --pollocks-sky: #e8f7fc;
+  
+  /* Soft Blacks/Whites */
+  --pollocks-black: #121212;
+  --pollocks-white: #FAFAFA;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-sans);
+  --font-serif: var(--font-serif-thin);
+  --font-serif-hero: var(--font-serif-hero);
+
+  --color-pollocks-blue: var(--pollocks-blue);
+  --color-pollocks-blue-dark: var(--pollocks-blue-dark);
+  --color-pollocks-blue-light: var(--pollocks-blue-light);
+  --color-pollocks-navy: var(--pollocks-navy);
+  --color-pollocks-sky: var(--pollocks-sky);
+  --color-pollocks-black: var(--pollocks-black);
+  --color-pollocks-white: var(--pollocks-white);
+
+  /* Animations */
+  --animate-fade-in: fade-in 0.5s ease-out forwards;
+  --animate-fade-up: fade-up 0.7s ease-out forwards;
+  
+  @keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  
+  @keyframes fade-up {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+}
+
+html {
+  scroll-behavior: auto;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* Global Heading Styles */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-serif), serif;
+  letter-spacing: 0.02em;
+  font-weight: 300;
+}
+
+/* Specific override for the massive Hero H1 */
+.hero-title {
+  font-family: var(--font-serif-hero), serif !important;
+  font-weight: 400 !important;
+  letter-spacing: -0.02em !important;
+  font-style: normal;
+}
+
+/* Custom Utility Classes for Apple-like Feel */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.glass-panel-dark {
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+/* Hide scrollbar for horizontal scroll areas but keep functionality */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Custom Scrollbar for Lead Form */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 20px;
+}
+.custom-scrollbar:hover::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+/* Writing mode for vertical text */
+.writing-vertical-rl {
+  writing-mode: vertical-rl;
+}
+
+/* Shadow glow effect */
+.shadow-glow {
+  box-shadow: 0 0 40px rgba(110, 200, 240, 0.4);
+}
+
+/* Responsive typography helpers */
+@media (max-width: 640px) {
+  .hero-title {
+    letter-spacing: -0.01em !important;
+  }
+}
