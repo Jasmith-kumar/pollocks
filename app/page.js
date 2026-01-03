@@ -20,9 +20,10 @@ export default function Home() {
   const wrapperRef = useRef(null);
   const [isMobile, setIsMobile] = useState(false);
 
-  // Check if mobile/tablet
+  // Check if mobile/tablet (including tablets in portrait/landscape)
   useEffect(() => {
     const checkMobile = () => {
+      // Consider mobile/tablet as anything below 1024px (lg breakpoint)
       setIsMobile(window.innerWidth < 1024);
     };
     checkMobile();
@@ -160,49 +161,49 @@ export default function Home() {
   // Mobile/Tablet: Vertical scroll layout
   if (isMobile) {
     return (
-      <main className="bg-white selection:bg-pollocks-blue selection:text-white">
+      <main className="bg-white selection:bg-pollocks-blue selection:text-white overflow-x-hidden max-w-full">
         {/* Hero */}
-        <section className="min-h-screen">
+        <section className="h-screen w-full overflow-hidden">
           <Hero />
         </section>
 
         {/* Academic Director */}
-        <section className="min-h-screen bg-pollocks-sky py-12">
+        <section className="bg-pollocks-sky w-full overflow-hidden">
           <DirectorShowcase />
         </section>
 
         {/* Programs */}
-        <section className="py-16 md:py-24 bg-white">
+        <section className="py-12 bg-white w-full overflow-hidden">
           <AcademicsGrid />
         </section>
 
-        {/* Campus Gallery - Simplified for mobile */}
-        <section className="py-16 md:py-24 bg-pollocks-navy">
+        {/* Campus Gallery */}
+        <section className="bg-pollocks-black w-full overflow-hidden">
           <CampusGallery />
         </section>
 
         {/* Activities */}
-        <section className="min-h-screen">
+        <section className="w-full overflow-hidden">
           <ActivitiesShowcase />
         </section>
 
         {/* Admission Process */}
-        <section className="py-16 md:py-24 bg-white">
+        <section className="py-12 bg-white w-full overflow-hidden">
           <AdmissionProcess />
         </section>
 
         {/* Video */}
-        <section className="py-16 md:py-24 bg-pollocks-navy">
+        <section className="py-12 bg-pollocks-navy w-full overflow-hidden">
           <VideoShowcase />
         </section>
 
         {/* Admission Form */}
-        <section className="py-16 md:py-24 bg-white">
+        <section className="py-12 bg-white w-full overflow-hidden">
           <AdmissionForm />
         </section>
 
         {/* Footer */}
-        <section id="footer-section" className="bg-pollocks-black">
+        <section id="footer-section" className="bg-pollocks-black w-full overflow-hidden py-12">
           <Footer />
         </section>
       </main>
@@ -212,62 +213,52 @@ export default function Home() {
   // Desktop: Horizontal scroll layout
   return (
     <main className="overscroll-none bg-white selection:bg-pollocks-blue selection:text-white overflow-hidden">
-      <div ref={containerRef} className="w-full h-full">
+      <div ref={containerRef} className="w-full h-screen overflow-hidden">
         <div ref={wrapperRef} id="horizontal-wrapper" className="flex h-screen w-fit">
         
         {/* Section 1: Hero */}
-        <section className="w-screen h-screen shrink-0 relative">
+        <section className="w-screen min-w-screen h-screen shrink-0 relative overflow-hidden">
           <Hero />
         </section>
 
         {/* Section 2: Academic Director */}
-        <section className="w-screen h-screen shrink-0 bg-pollocks-sky flex items-center justify-center overflow-hidden">
-           <div className="h-full w-full overflow-y-auto lg:overflow-hidden">
-             <DirectorShowcase />
-           </div>
+        <section className="w-screen min-w-screen h-screen shrink-0 bg-pollocks-sky overflow-hidden">
+          <DirectorShowcase />
         </section>
 
         {/* Section 3: Programs/Academics */}
-        <section className="w-screen h-screen shrink-0 bg-white flex items-center justify-center overflow-hidden px-8">
-             <div className="h-full w-full overflow-y-auto lg:overflow-hidden flex items-center">
-                <AcademicsGrid />
-             </div>
+        <section className="w-screen min-w-screen h-screen shrink-0 bg-white overflow-hidden">
+          <AcademicsGrid />
         </section>
 
         {/* Section 4: Campus Gallery */}
-        <div className="h-screen shrink-0">
+        <div id="gallery-section" className="h-screen shrink-0 min-w-screen overflow-hidden">
           <CampusGallery />
         </div>
 
         {/* Section 5: Co-Curricular Activities */}
-        <div className="h-screen shrink-0">
+        <section className="w-screen min-w-screen h-screen shrink-0 overflow-hidden">
           <ActivitiesShowcase />
-        </div>
+        </section>
 
         {/* Section 6: Admission Process */}
-        <div id="process-section" className="h-screen shrink-0">
+        <section id="process-section" className="w-screen min-w-screen h-screen shrink-0 bg-white overflow-hidden">
           <AdmissionProcess />
-        </div>
+        </section>
 
         {/* Section 7: Video */}
-        <section className="w-screen h-screen shrink-0 bg-pollocks-navy flex items-center justify-center px-8">
-            <div className="w-full h-full flex items-center justify-center">
-                <VideoShowcase />
-            </div>
+        <section className="w-screen min-w-screen h-screen shrink-0 bg-pollocks-navy overflow-hidden">
+          <VideoShowcase />
         </section>
 
         {/* Section 8: Admission Form */}
-        <section className="w-screen h-screen shrink-0 bg-white flex items-center justify-center px-8">
-             <div className="h-full w-full overflow-y-auto flex items-center py-12">
-                <AdmissionForm />
-             </div>
+        <section className="w-screen min-w-screen h-screen shrink-0 bg-mesh-light overflow-hidden flex items-center justify-center">
+          <AdmissionForm />
         </section>
 
         {/* Section 9: Footer */}
-        <section id="footer-section" className="w-screen h-screen shrink-0 bg-pollocks-black flex items-center justify-center">
-             <div className="h-full w-full overflow-y-auto lg:overflow-hidden flex items-center">
-                <Footer />
-             </div>
+        <section id="footer-section" className="w-screen min-w-screen h-screen shrink-0 bg-pollocks-black overflow-hidden">
+          <Footer />
         </section>
       </div>
       </div>

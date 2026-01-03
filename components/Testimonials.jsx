@@ -80,43 +80,43 @@ export default function Testimonials() {
       </div>
 
       <div className="relative">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={currentIndex}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.5 }}
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={currentIndex}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.5 }}
             className="bg-pollocks-sky/50 rounded-2xl md:rounded-3xl p-6 sm:p-8 md:p-12 lg:p-16 text-center"
-          >
+              >
             <Quote className="w-10 h-10 sm:w-12 sm:h-12 text-pollocks-blue mx-auto mb-6 opacity-50" />
             <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-pollocks-black font-serif leading-relaxed mb-6 sm:mb-8">
               "{testimonials[currentIndex].quote}"
-            </p>
+                </p>
             <div className="flex items-center justify-center gap-4">
-              <img
-                src={testimonials[currentIndex].image}
-                alt={testimonials[currentIndex].author}
+                    <img 
+                        src={testimonials[currentIndex].image} 
+                        alt={testimonials[currentIndex].author} 
                 className="w-12 h-12 sm:w-14 sm:h-14 rounded-full object-cover border-2 border-pollocks-blue"
-              />
+                    />
               <div className="text-left">
                 <p className="font-serif font-bold text-pollocks-black text-base sm:text-lg">
                   {testimonials[currentIndex].author}
                 </p>
                 <p className="text-gray-500 text-sm">{testimonials[currentIndex].role}</p>
-              </div>
-            </div>
-          </motion.div>
-        </AnimatePresence>
+                  </div>
+                </div>
+              </motion.div>
+            </AnimatePresence>
 
         {/* Navigation */}
         <div className="flex justify-center gap-4 mt-6 sm:mt-8">
-          <button
-            onClick={prevSlide}
+            <button 
+                onClick={prevSlide}
             className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-pollocks-blue text-white flex items-center justify-center hover:bg-pollocks-blue-dark transition-colors"
-          >
+            >
             <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
-          </button>
+            </button>
           <div className="flex items-center gap-2">
             {testimonials.map((_, idx) => (
               <button

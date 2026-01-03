@@ -28,13 +28,19 @@ export const metadata = {
   title: "Pollocks School | Best CBSE School in Visakhapatnam",
   description: "Established in 1966, Pollocks School provides quality CBSE education from Pre-Nursery to 10th Standard in Visakhapatnam. Nurturing bright, confident, and well-balanced individuals.",
   keywords: "Pollocks School, CBSE School, Visakhapatnam, Vizag, Best School, Education, Pre-Nursery, 10th Standard",
+  icons: {
+    icon: "/icon.svg",
+    shortcut: "/icon.svg",
+    apple: "/icon.svg",
+  },
 };
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${jakarta.variable} ${playfair.variable} ${cormorant.variable} font-sans antialiased bg-white text-pollocks-black`}
+        suppressHydrationWarning
       >
         <Navigation />
         {children}

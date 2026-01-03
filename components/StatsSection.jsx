@@ -36,7 +36,7 @@ function AnimatedCounter({ value, suffix, duration = 2 }) {
 
     requestAnimationFrame(animate);
   }, [isInView, value, duration]);
-
+  
   return (
     <span ref={ref}>
       {count.toLocaleString()}{suffix}
@@ -84,7 +84,7 @@ export default function StatsSection() {
               </div>
               <div className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold text-white mb-2">
                 <AnimatedCounter value={stat.value} suffix={stat.suffix} />
-              </div>
+      </div>
               <p className="text-gray-400 text-sm sm:text-base">{stat.label}</p>
             </motion.div>
           );

@@ -134,8 +134,10 @@ export default function AboutPage() {
   // Mobile Layout
   if (isMobile) {
     return (
-      <main className="bg-white selection:bg-pollocks-blue selection:text-white">
-        <AboutHero />
+      <main className="bg-white selection:bg-pollocks-blue selection:text-white pt-16 md:pt-20">
+        <div className="-mt-16 md:-mt-20">
+          <AboutHero />
+        </div>
         
         <section className="bg-pollocks-sky py-12">
           <DirectorShowcase />
@@ -169,7 +171,7 @@ export default function AboutPage() {
   // Desktop Layout
   return (
     <main className="overscroll-none bg-white selection:bg-pollocks-blue selection:text-white overflow-hidden">
-      <div ref={containerRef} className="w-full h-full">
+      <div ref={containerRef} className="w-full h-screen overflow-hidden">
         <div ref={wrapperRef} className="flex h-screen w-fit">
           
           <section className="w-screen h-screen shrink-0 relative bg-pollocks-navy flex items-center justify-center overflow-hidden">
@@ -195,7 +197,7 @@ export default function AboutPage() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, delay: 0.2 }}
-                    className="text-5xl md:text-6xl lg:text-7xl font-serif font-medium text-white mb-6 leading-tight"
+                    className="text-4xl md:text-5xl lg:text-6xl font-serif font-medium text-white mb-4 leading-tight"
                 >
                     Our Story
                 </motion.h1>
@@ -203,51 +205,49 @@ export default function AboutPage() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, delay: 0.4 }}
-                    className="text-lg md:text-xl text-gray-300 font-light max-w-2xl mx-auto"
+                    className="text-base md:text-lg text-gray-300 font-light max-w-2xl mx-auto"
                 >
                     58 years of nurturing young minds and building bright futures in Visakhapatnam.
                 </motion.p>
             </div>
           </section>
 
-          <section className="w-screen h-screen shrink-0 flex items-center justify-center bg-pollocks-sky overflow-hidden">
+          <section className="w-screen h-screen shrink-0 flex items-center justify-center bg-pollocks-sky overflow-hidden pt-20">
              <div className="w-full h-full flex items-center overflow-y-auto lg:overflow-hidden">
                 <DirectorShowcase />
              </div>
           </section>
 
-          <section className="h-screen shrink-0">
+          <section className="h-screen shrink-0 pt-20">
              <AboutTimeline />
           </section>
 
-          <section className="w-screen h-screen shrink-0 bg-pollocks-navy flex items-center justify-center">
+          <section className="w-screen h-screen shrink-0 bg-pollocks-navy flex items-center justify-center pt-20">
              <div className="w-full">
                 <StatsSection />
              </div>
           </section>
 
-          <section className="w-screen h-screen shrink-0 bg-white flex items-center justify-center overflow-hidden">
+          <section className="w-screen h-screen shrink-0 bg-white flex items-center justify-center overflow-hidden pt-20">
              <div className="w-full h-full flex items-center overflow-y-auto lg:overflow-hidden">
                 <TeamSection />
              </div>
           </section>
 
-          <section className="w-screen h-screen shrink-0 bg-pollocks-navy flex items-center justify-center px-8">
+          <section className="w-screen h-screen shrink-0 bg-pollocks-navy flex items-center justify-center px-8 pt-20">
              <div className="w-full">
                 <VideoShowcase />
              </div>
           </section>
 
-          <section className="w-screen h-screen shrink-0 bg-white flex items-center justify-center">
+          <section className="w-screen h-screen shrink-0 bg-white flex items-center justify-center pt-20">
              <div className="w-full">
                 <Testimonials />
              </div>
           </section>
 
           <section id="footer-section" className="w-screen h-screen shrink-0 bg-pollocks-black flex items-center justify-center">
-             <div className="w-full h-full flex items-center overflow-y-auto lg:overflow-hidden">
-                <Footer />
-             </div>
+            <Footer />
           </section>
 
         </div>

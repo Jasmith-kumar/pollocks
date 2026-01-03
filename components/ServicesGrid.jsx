@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Card, CardContent, CardTitle } from "./ui/Card";
 import { BookOpen, Users, Trophy, Palette } from "lucide-react";
 
 const programs = [
@@ -9,44 +8,50 @@ const programs = [
     title: "Pre-Primary",
     icon: Users,
     description: "Nurturing foundation for Pre-Nursery to UKG with play-based learning.",
-    gradient: "from-pollocks-blue/10 to-pollocks-sky/20",
+    color: "from-pollocks-blue to-pollocks-blue-dark",
   },
   {
     title: "Primary School",
     icon: BookOpen,
     description: "CBSE curriculum for Classes 1-5 with focus on conceptual understanding.",
-    gradient: "from-pollocks-sky/20 to-pollocks-blue-light/20",
+    color: "from-emerald-400 to-emerald-500",
   },
   {
     title: "Middle School",
     icon: Trophy,
     description: "Classes 6-8 preparing students for academic excellence and life skills.",
-    gradient: "from-green-500/10 to-emerald-500/10",
+    color: "from-amber-400 to-orange-500",
   },
   {
     title: "Secondary School",
     icon: Palette,
     description: "Classes 9-10 with comprehensive CBSE board exam preparation.",
-    gradient: "from-blue-500/10 to-cyan-500/10",
+    color: "from-violet-400 to-purple-500",
   },
 ];
 
 export default function AcademicsGrid() {
   return (
-    <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 md:px-8 lg:px-12 py-8 lg:py-0">
+    <div className="w-full h-full flex items-center px-6 md:px-10 lg:px-12">
+      <div className="w-full max-w-6xl mx-auto">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 15 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-8 md:mb-12 lg:mb-16"
+          className="text-center mb-8 lg:mb-12"
         >
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-pollocks-black mb-3 md:mb-4 font-serif">Our Programs</h2>
-          <p className="text-gray-500 max-w-2xl mx-auto text-sm sm:text-base lg:text-lg px-4">
+          <span className="text-pollocks-blue uppercase tracking-[0.15em] text-xs font-medium block mb-2">
+            Academics
+          </span>
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-pollocks-black mb-3 font-serif">
+            Our Programs
+          </h2>
+          <p className="text-gray-500 max-w-lg mx-auto text-sm lg:text-base">
             Quality CBSE education from Pre-Nursery to 10th Standard.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
           {programs.map((program, index) => (
             <motion.div
               key={index}
@@ -54,22 +59,24 @@ export default function AcademicsGrid() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
-              whileHover={{ y: -10 }}
+              whileHover={{ y: -8, scale: 1.02 }}
+              className="ios-card p-5 lg:p-6 flex flex-col items-center text-center cursor-pointer"
             >
-              <Card className={`h-full border-none shadow-lg bg-gradient-to-br ${program.gradient} hover:shadow-xl min-h-[200px] sm:min-h-[250px] lg:min-h-[280px]`}>
-                <CardContent className="p-4 sm:p-6 lg:p-8 flex flex-col items-center text-center h-full justify-center gap-3 sm:gap-4 lg:gap-6">
-                  <div className="p-3 lg:p-4 bg-white rounded-full shadow-sm">
-                    <program.icon className="w-6 h-6 lg:w-8 lg:h-8 text-pollocks-blue" />
-                  </div>
-                  <CardTitle className="text-lg sm:text-xl lg:text-2xl font-serif">{program.title}</CardTitle>
-                  <p className="text-gray-600 leading-relaxed text-sm lg:text-base">
-                    {program.description}
-                  </p>
-                </CardContent>
-              </Card>
+              {/* Icon with gradient background */}
+              <div className={`w-14 h-14 lg:w-16 lg:h-16 rounded-2xl bg-gradient-to-br ${program.color} flex items-center justify-center mb-4 shadow-lg`}>
+                <program.icon className="w-6 h-6 lg:w-7 lg:h-7 text-white" />
+              </div>
+              
+              <h3 className="text-base lg:text-lg font-serif font-bold text-pollocks-black mb-2">
+                {program.title}
+              </h3>
+              <p className="text-gray-600 text-xs lg:text-sm leading-relaxed">
+                {program.description}
+              </p>
             </motion.div>
           ))}
         </div>
+      </div>
     </div>
   );
 }

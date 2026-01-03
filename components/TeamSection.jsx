@@ -51,24 +51,24 @@ export default function TeamSection() {
         >
           Meet Our Team
         </motion.h2>
-      </div>
+        </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
         {educators.map((educator, index) => (
-          <motion.div
-            key={index}
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
             transition={{ delay: index * 0.1 }}
-            className="group"
-          >
+              className="group"
+            >
             <div className="relative overflow-hidden rounded-2xl md:rounded-3xl mb-4 aspect-[3/4]">
-              <img
+                <img 
                 src={educator.image}
                 alt={educator.name}
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-              />
+                />
               <div className="absolute inset-0 bg-gradient-to-t from-pollocks-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               
               {/* Hover Content */}
@@ -86,9 +86,9 @@ export default function TeamSection() {
             </div>
             <h3 className="text-lg sm:text-xl font-serif font-bold text-pollocks-black mb-1">{educator.name}</h3>
             <p className="text-pollocks-blue text-sm sm:text-base">{educator.role}</p>
-          </motion.div>
-        ))}
+            </motion.div>
+          ))}
+        </div>
       </div>
-    </div>
   );
 }

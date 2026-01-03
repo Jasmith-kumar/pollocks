@@ -117,7 +117,7 @@ export default function AcademicsPage() {
   // Mobile Layout
   if (isMobile) {
     return (
-      <main className="bg-white min-h-screen pt-16">
+      <main className="bg-white min-h-screen pt-16 md:pt-20">
         {/* Hero */}
         <section className="bg-pollocks-navy text-white py-20 md:py-28 px-4 sm:px-6 text-center relative overflow-hidden">
           <div className="absolute inset-0 z-0">
@@ -179,7 +179,7 @@ export default function AcademicsPage() {
   // Desktop - Horizontal Scroll
   return (
     <main className="overscroll-none bg-white selection:bg-pollocks-blue selection:text-white overflow-hidden">
-      <div ref={containerRef} className="w-full h-full">
+      <div ref={containerRef} className="w-full h-screen overflow-hidden">
         <div ref={wrapperRef} className="flex h-screen w-fit">
           
           {/* Hero Section */}
@@ -205,7 +205,7 @@ export default function AcademicsPage() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.1 }}
-                    className="text-5xl md:text-6xl lg:text-7xl font-serif font-bold text-white mb-6"
+                    className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-white mb-4"
                 >
                     Our Academics
                 </motion.h1>
@@ -213,7 +213,7 @@ export default function AcademicsPage() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.2 }}
-                    className="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto"
+                    className="text-base md:text-lg text-gray-300 max-w-2xl mx-auto"
                 >
                     Quality education from Pre-Nursery to 10th Standard, nurturing young minds for a bright future.
                 </motion.p>
@@ -226,14 +226,14 @@ export default function AcademicsPage() {
             const isEven = index % 2 === 0;
             
             return (
-              <section key={index} className="w-screen h-screen shrink-0 bg-white overflow-hidden relative flex items-center px-8 lg:px-16">
-                <div className={`container mx-auto h-full flex items-center gap-12 lg:gap-24 ${isEven ? '' : 'flex-row-reverse'}`}>
+              <section key={index} className="w-screen h-screen shrink-0 bg-white overflow-hidden relative flex items-center px-8 lg:px-12 pt-20">
+                <div className={`container mx-auto h-full flex items-center gap-8 lg:gap-16 ${isEven ? '' : 'flex-row-reverse'}`}>
                   {/* Image */}
-                  <div className="w-1/2 h-[70vh] relative">
-                    <div className="absolute inset-0 bg-pollocks-sky/20 rounded-[3rem] transform rotate-3 scale-95" />
-                    <div className="relative h-full w-full rounded-[2.5rem] overflow-hidden shadow-2xl">
+                  <div className="w-1/2 h-[60vh] relative">
+                    <div className="absolute inset-0 bg-pollocks-sky/20 rounded-[2rem] transform rotate-3 scale-95" />
+                    <div className="relative h-full w-full rounded-[1.5rem] overflow-hidden shadow-2xl">
                       <img src={program.image} alt={program.title} className="w-full h-full object-cover" />
-                      <div className="absolute -bottom-10 -right-10 text-[10rem] font-serif font-bold text-white/20 pointer-events-none">
+                      <div className="absolute -bottom-8 -right-8 text-[8rem] font-serif font-bold text-white/20 pointer-events-none">
                         0{index + 1}
                       </div>
                     </div>
@@ -241,16 +241,16 @@ export default function AcademicsPage() {
 
                   {/* Content */}
                   <div className="w-1/2">
-                    <div className="w-14 h-14 bg-pollocks-blue rounded-2xl flex items-center justify-center mb-6">
-                      <Icon className="w-7 h-7 text-white" />
+                    <div className="w-12 h-12 bg-pollocks-blue rounded-xl flex items-center justify-center mb-4">
+                      <Icon className="w-6 h-6 text-white" />
                     </div>
-                    <h2 className="text-4xl lg:text-5xl font-serif font-bold text-pollocks-black mb-6">{program.title}</h2>
-                    <p className="text-lg text-gray-600 mb-8 leading-relaxed max-w-lg">{program.description}</p>
-                    <div className="grid grid-cols-2 gap-4 mb-8">
+                    <h2 className="text-3xl lg:text-4xl font-serif font-bold text-pollocks-black mb-4">{program.title}</h2>
+                    <p className="text-base text-gray-600 mb-6 leading-relaxed max-w-lg">{program.description}</p>
+                    <div className="grid grid-cols-2 gap-3 mb-6">
                       {program.features.map((feature, idx) => (
-                        <div key={idx} className="flex items-center gap-3">
-                          <div className="w-6 h-6 rounded-full bg-pollocks-blue/10 flex items-center justify-center">
-                            <Check size={14} className="text-pollocks-blue" />
+                        <div key={idx} className="flex items-center gap-2">
+                          <div className="w-5 h-5 rounded-full bg-pollocks-blue/10 flex items-center justify-center">
+                            <Check size={12} className="text-pollocks-blue" />
                           </div>
                           <span className="text-gray-700 font-medium">{feature}</span>
                         </div>

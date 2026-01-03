@@ -4,141 +4,109 @@ import { motion } from "framer-motion";
 import { FileText, FormInput, ClipboardCheck, UserCheck, Key, GraduationCap } from "lucide-react";
 
 const steps = [
-  {
-    number: "01",
-    title: "Enquiry",
-    description: "Visit our campus or fill the online enquiry form to know more about admissions.",
-    icon: FileText,
-  },
-  {
-    number: "02",
-    title: "Application",
-    description: "Submit the application form with required documents for processing.",
-    icon: FormInput,
-  },
-  {
-    number: "03",
-    title: "Assessment",
-    description: "Age-appropriate assessment to understand your child's learning level.",
-    icon: ClipboardCheck,
-  },
-  {
-    number: "04",
-    title: "Interview",
-    description: "Brief interaction with parents and child to discuss educational goals.",
-    icon: UserCheck,
-  },
-  {
-    number: "05",
-    title: "Admission",
-    description: "Complete fee payment and receive admission confirmation.",
-    icon: Key,
-  },
-  {
-    number: "06",
-    title: "Orientation",
-    description: "Join the orientation program to get familiar with school culture.",
-    icon: GraduationCap,
-  },
+  { number: "01", title: "Enquiry", description: "Initial consultation to understand your child's needs and answer your questions about our curriculum.", icon: FileText },
+  { number: "02", title: "Application", description: "Submit the application form with required documents and registration fee.", icon: FormInput },
+  { number: "03", title: "Assessment", description: "Age-appropriate assessment to understand your child's learning readiness.", icon: ClipboardCheck },
+  { number: "04", title: "Interview", description: "Interaction with parents and child to ensure alignment with our values.", icon: UserCheck },
+  { number: "05", title: "Admission", description: "Fee payment and completion of admission formalities.", icon: Key },
+  { number: "06", title: "Orientation", description: "Welcome program to familiarize with school culture and expectations.", icon: GraduationCap },
 ];
 
-export default function ProcessTimeline() {
+export default function AdmissionProcess() {
   return (
     <>
       {/* Desktop Horizontal Version */}
-      <section className="hidden lg:flex w-fit h-screen bg-white items-center px-16 xl:px-24 shrink-0">
-        <div>
-          <div className="mb-12 xl:mb-16">
+      <section className="hidden lg:flex w-screen min-w-screen h-full bg-white items-center px-8 lg:px-10 shrink-0 overflow-hidden">
+        <div className="w-full max-w-full">
+          <div className="mb-8">
             <motion.span
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="text-pollocks-blue uppercase tracking-[0.2em] text-sm font-medium block mb-4"
+              className="text-pollocks-blue uppercase tracking-[0.15em] text-xs font-medium block mb-2"
             >
               How it Works
             </motion.span>
             <motion.h2
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
-              className="text-4xl xl:text-5xl font-serif font-bold text-pollocks-black"
+              className="text-3xl lg:text-4xl font-serif font-bold text-pollocks-black"
             >
               Admission Process
             </motion.h2>
           </div>
 
-          <div className="flex gap-6 xl:gap-8">
+          {/* Steps Grid */}
+          <div className="grid grid-cols-6 gap-4">
             {steps.map((step, index) => {
               const Icon = step.icon;
               return (
                 <motion.div
                   key={index}
-                  initial={{ opacity: 0, y: 30 }}
+                  initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
-                  className="w-56 xl:w-64 shrink-0"
+                  transition={{ delay: index * 0.08 }}
+                  className="group"
                 >
-                  <div className="relative mb-6 xl:mb-8">
-                    <div className="w-16 h-16 xl:w-20 xl:h-20 bg-pollocks-blue rounded-2xl flex items-center justify-center shadow-lg shadow-pollocks-blue/30">
-                      <Icon className="w-8 h-8 xl:w-10 xl:h-10 text-white" />
+                  <div className="relative bg-pollocks-sky/50 rounded-xl p-5 h-full hover:bg-pollocks-sky transition-colors">
+                    {/* Step Number */}
+                    <div className="absolute -top-3 -right-3 w-10 h-10 bg-pollocks-blue rounded-full flex items-center justify-center text-white font-bold text-sm shadow-md">
+                      {step.number}
                     </div>
-                    {index < steps.length - 1 && (
-                      <div className="absolute top-8 xl:top-10 left-20 xl:left-24 w-32 xl:w-36 h-[2px] bg-gradient-to-r from-pollocks-blue to-pollocks-blue/20" />
-                    )}
+                    
+                    {/* Icon */}
+                    <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center mb-3 shadow-sm">
+                      <Icon className="w-5 h-5 text-pollocks-blue" />
+                    </div>
+                    
+                    <h4 className="font-serif font-bold text-pollocks-black text-base mb-2">{step.title}</h4>
+                    <p className="text-xs text-gray-600 leading-relaxed">{step.description}</p>
                   </div>
-                  <span className="text-pollocks-blue font-bold text-lg xl:text-xl mb-2 block">{step.number}</span>
-                  <h3 className="text-xl xl:text-2xl font-serif font-bold text-pollocks-black mb-2 xl:mb-3">{step.title}</h3>
-                  <p className="text-gray-600 text-sm xl:text-base leading-relaxed">{step.description}</p>
                 </motion.div>
               );
             })}
+          </div>
+
+          {/* Scroll Hint */}
+          <div className="mt-6 text-right">
+            <span className="text-xs text-gray-400 uppercase tracking-wider">Scroll right →</span>
           </div>
         </div>
       </section>
 
-      {/* Mobile/Tablet Version */}
-      <section className="lg:hidden py-12 md:py-16 px-4 sm:px-6 bg-white">
-        <div className="max-w-2xl mx-auto">
-          <div className="text-center mb-8 md:mb-12">
-            <span className="text-pollocks-blue uppercase tracking-[0.15em] text-xs sm:text-sm font-medium block mb-3">
-              How it Works
-            </span>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-serif font-bold text-pollocks-black">
-              Admission Process
-            </h2>
-          </div>
+      {/* Mobile Version */}
+      <section className="lg:hidden py-12 bg-white px-4 sm:px-6">
+        <div className="text-center mb-8">
+          <span className="text-pollocks-blue uppercase tracking-[0.15em] text-xs font-medium block mb-2">How it Works</span>
+          <h2 className="text-2xl font-serif font-bold text-pollocks-black">Admission Process</h2>
+        </div>
 
-          <div className="space-y-6">
-            {steps.map((step, index) => {
-              const Icon = step.icon;
-              return (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
-                  className="flex gap-4"
-                >
-                  <div className="shrink-0">
-                    <div className="w-12 h-12 sm:w-14 sm:h-14 bg-pollocks-blue rounded-xl flex items-center justify-center shadow-lg shadow-pollocks-blue/20">
-                      <Icon className="w-6 h-6 sm:w-7 sm:h-7 text-white" />
-                    </div>
-                    {index < steps.length - 1 && (
-                      <div className="w-0.5 h-12 bg-pollocks-blue/20 ml-6 sm:ml-7 mt-2" />
-                    )}
-                  </div>
-                  <div className="pt-1">
-                    <span className="text-pollocks-blue font-bold text-sm mb-1 block">{step.number}</span>
-                    <h3 className="text-lg sm:text-xl font-serif font-bold text-pollocks-black mb-1">{step.title}</h3>
-                    <p className="text-gray-600 text-sm">{step.description}</p>
-                  </div>
-                </motion.div>
-              );
-            })}
-          </div>
+        <div className="grid grid-cols-2 gap-3">
+          {steps.map((step, index) => {
+            const Icon = step.icon;
+            return (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.08 }}
+                className="relative bg-pollocks-sky/50 rounded-xl p-4"
+              >
+                <div className="absolute -top-2 -right-2 w-8 h-8 bg-pollocks-blue rounded-full flex items-center justify-center text-white font-bold text-xs">
+                  {step.number}
+                </div>
+                <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center mb-2 shadow-sm">
+                  <Icon className="w-4 h-4 text-pollocks-blue" />
+                </div>
+                <h4 className="font-serif font-bold text-pollocks-black text-sm mb-1">{step.title}</h4>
+                <p className="text-[10px] text-gray-600 leading-relaxed">{step.description}</p>
+              </motion.div>
+            );
+          })}
         </div>
       </section>
     </>

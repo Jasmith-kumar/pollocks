@@ -73,7 +73,7 @@ export default function ContactPage() {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       onSubmit={handleSubmit}
-      className="bg-white p-6 sm:p-8 rounded-2xl md:rounded-3xl shadow-xl max-w-xl w-full"
+      className="ios-glass p-6 sm:p-8 rounded-2xl md:rounded-3xl max-w-xl w-full"
     >
       {submitted ? (
         <div className="text-center py-8">
@@ -146,7 +146,7 @@ export default function ContactPage() {
   // Mobile Layout
   if (isMobile) {
     return (
-      <main className="bg-white min-h-screen pt-16">
+      <main className="bg-white min-h-screen pt-16 md:pt-20">
         {/* Hero */}
         <section className="bg-pollocks-navy text-white py-20 md:py-28 px-4 sm:px-6 text-center relative overflow-hidden">
           <div className="absolute inset-0 z-0">
@@ -242,7 +242,7 @@ export default function ContactPage() {
   // Desktop Layout
   return (
     <main className="overscroll-none bg-white selection:bg-pollocks-blue selection:text-white overflow-hidden">
-      <div ref={containerRef} className="w-full h-full">
+      <div ref={containerRef} className="w-full h-screen overflow-hidden">
         <div ref={wrapperRef} className="flex h-screen w-fit">
           
           {/* Hero Section */}
@@ -268,7 +268,7 @@ export default function ContactPage() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.1 }}
-                    className="text-5xl md:text-6xl lg:text-7xl font-serif font-bold text-white mb-6"
+                    className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-white mb-4"
                 >
                     Contact Us
                 </motion.h1>
@@ -276,7 +276,7 @@ export default function ContactPage() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.2 }}
-                    className="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto"
+                    className="text-base md:text-lg text-gray-300 max-w-2xl mx-auto"
                 >
                     We'd love to hear from you. Reach out for any queries about admissions or general information.
                 </motion.p>
@@ -284,12 +284,12 @@ export default function ContactPage() {
           </section>
 
           {/* Contact Info & Form */}
-          <section className="w-screen h-screen shrink-0 bg-gradient-to-br from-pollocks-sky to-white flex items-center justify-center px-12">
-            <div className="max-w-6xl mx-auto grid grid-cols-2 gap-16 items-center">
+          <section className="w-screen h-screen shrink-0 bg-mesh-light flex items-center justify-center px-8">
+            <div className="max-w-6xl mx-auto grid grid-cols-2 gap-10 items-center">
               {/* Info */}
               <div>
-                <h2 className="text-4xl lg:text-5xl font-serif font-bold text-pollocks-black mb-8">Let's Connect</h2>
-                <div className="space-y-6">
+                <h2 className="text-3xl lg:text-4xl font-serif font-bold text-pollocks-black mb-6">Let's Connect</h2>
+                <div className="space-y-4">
                   {contactInfo.map((info, index) => (
                     <motion.div
                       key={index}
@@ -297,19 +297,19 @@ export default function ContactPage() {
                       whileInView={{ opacity: 1, x: 0 }}
                       viewport={{ once: true }}
                       transition={{ delay: index * 0.1 }}
-                      className="flex items-center gap-5"
+                      className="flex items-center gap-4"
                     >
-                      <div className="w-14 h-14 bg-pollocks-blue rounded-2xl flex items-center justify-center shrink-0">
-                        <info.icon className="w-7 h-7 text-white" />
+                      <div className="w-12 h-12 bg-pollocks-blue rounded-xl flex items-center justify-center shrink-0">
+                        <info.icon className="w-6 h-6 text-white" />
                       </div>
                       <div>
-                        <p className="text-sm text-gray-500">{info.label}</p>
+                        <p className="text-xs text-gray-500">{info.label}</p>
                         {info.href ? (
-                          <a href={info.href} className="text-lg text-pollocks-black font-medium hover:text-pollocks-blue transition-colors">
+                          <a href={info.href} className="text-base text-pollocks-black font-medium hover:text-pollocks-blue transition-colors">
                             {info.value}
                           </a>
                         ) : (
-                          <p className="text-lg text-pollocks-black font-medium">{info.value}</p>
+                          <p className="text-base text-pollocks-black font-medium">{info.value}</p>
                         )}
                       </div>
                     </motion.div>
@@ -323,7 +323,7 @@ export default function ContactPage() {
           </section>
 
           {/* Map Section */}
-          <section className="w-screen h-screen shrink-0 relative">
+          <section className="w-screen h-screen shrink-0 relative pt-20">
             <iframe
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3799.9936086044574!2d83.34689971477887!3d17.780673687817547!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a39431389e6973f%3A0x92d9c20395498468!2sMadhurawada%2C%20Visakhapatnam%2C%20Andhra%20Pradesh!5e0!3m2!1sen!2sin!4v1234567890123!5m2!1sen!2sin"
               width="100%"
@@ -334,17 +334,15 @@ export default function ContactPage() {
               referrerPolicy="no-referrer-when-downgrade"
               className="absolute inset-0"
             />
-            <div className="absolute top-8 left-8 bg-white p-6 rounded-2xl shadow-xl max-w-sm z-10">
-              <h3 className="text-xl font-serif font-bold text-pollocks-black mb-2">Main Campus</h3>
-              <p className="text-gray-600">Madhurawada, Visakhapatnam, Andhra Pradesh 530048</p>
+            <div className="absolute top-24 left-8 bg-white p-5 rounded-xl shadow-xl max-w-sm z-10">
+              <h3 className="text-lg font-serif font-bold text-pollocks-black mb-2">Main Campus</h3>
+              <p className="text-gray-600 text-sm">Madhurawada, Visakhapatnam, Andhra Pradesh 530048</p>
             </div>
           </section>
 
           {/* Footer */}
           <section id="footer-section" className="w-screen h-screen shrink-0 bg-pollocks-black flex items-center justify-center">
-             <div className="w-full h-full flex items-center overflow-y-auto lg:overflow-hidden">
-                <Footer />
-             </div>
+            <Footer />
           </section>
 
         </div>

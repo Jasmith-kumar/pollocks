@@ -105,7 +105,7 @@ export default function GalleryPage() {
   };
 
   return (
-    <main className="bg-white min-h-screen pt-20 md:pt-24">
+    <main className="bg-white min-h-screen pt-16 md:pt-20">
       {/* Hero Section */}
       <section className="bg-pollocks-navy text-white py-16 md:py-24 lg:py-32 px-4 sm:px-6 text-center relative overflow-hidden">
         <div className="absolute inset-0 z-0">

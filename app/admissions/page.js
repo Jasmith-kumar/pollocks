@@ -67,7 +67,7 @@ export default function AdmissionsPage() {
   // Mobile Layout
   if (isMobile) {
     return (
-      <main className="bg-white min-h-screen pt-16">
+      <main className="bg-white min-h-screen pt-16 md:pt-20">
         {/* Hero */}
         <section className="bg-pollocks-navy text-white py-20 md:py-28 px-4 sm:px-6 text-center relative overflow-hidden">
           <div className="absolute inset-0 z-0">
@@ -176,7 +176,7 @@ export default function AdmissionsPage() {
   // Desktop Layout
   return (
     <main className="overscroll-none bg-white selection:bg-pollocks-blue selection:text-white overflow-hidden">
-      <div ref={containerRef} className="w-full h-full">
+      <div ref={containerRef} className="w-full h-screen overflow-hidden">
         <div ref={wrapperRef} className="flex h-screen w-fit">
           
           {/* Hero Section */}
@@ -203,7 +203,7 @@ export default function AdmissionsPage() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.1 }}
-                    className="text-5xl md:text-6xl lg:text-7xl font-serif font-bold text-white mb-6"
+                    className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-white mb-4"
                 >
                     Join Pollocks School
                 </motion.h1>
@@ -211,7 +211,7 @@ export default function AdmissionsPage() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.2 }}
-                    className="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto"
+                    className="text-base md:text-lg text-gray-300 max-w-2xl mx-auto"
                 >
                     Begin your child's journey towards a bright future with quality CBSE education.
                 </motion.p>
@@ -219,21 +219,21 @@ export default function AdmissionsPage() {
           </section>
 
           {/* Requirements Section */}
-          <section className="w-screen h-screen shrink-0 bg-gradient-to-br from-pollocks-sky to-white flex items-center justify-center px-12">
-            <div className="max-w-5xl mx-auto grid grid-cols-2 gap-16 items-center">
+          <section className="w-screen h-screen shrink-0 bg-gradient-to-br from-pollocks-sky to-white flex items-center justify-center px-8 pt-20">
+            <div className="max-w-5xl mx-auto grid grid-cols-2 gap-10 items-center">
               <div>
                 <motion.div
                   initial={{ opacity: 0 }}
                   whileInView={{ opacity: 1 }}
                   viewport={{ once: true }}
-                  className="w-16 h-16 bg-pollocks-blue rounded-2xl flex items-center justify-center mb-8"
+                  className="w-12 h-12 bg-pollocks-blue rounded-xl flex items-center justify-center mb-6"
                 >
-                  <FileText className="w-8 h-8 text-white" />
+                  <FileText className="w-6 h-6 text-white" />
                 </motion.div>
-                <h2 className="text-4xl lg:text-5xl font-serif font-bold text-pollocks-black mb-6">Required Documents</h2>
-                <p className="text-lg text-gray-600 mb-8">Please keep the following documents ready before starting the admission process.</p>
+                <h2 className="text-3xl lg:text-4xl font-serif font-bold text-pollocks-black mb-4">Required Documents</h2>
+                <p className="text-base text-gray-600 mb-6">Please keep the following documents ready before starting the admission process.</p>
               </div>
-              <div className="space-y-4">
+              <div className="space-y-3">
                 {requirements.map((req, index) => (
                   <motion.div
                     key={index}
@@ -241,10 +241,10 @@ export default function AdmissionsPage() {
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: index * 0.1 }}
-                    className="flex items-center gap-4 p-5 bg-white rounded-xl shadow-lg"
+                    className="flex items-center gap-3 p-4 bg-white rounded-xl shadow-lg"
                   >
-                    <CheckCircle className="w-6 h-6 text-pollocks-blue shrink-0" />
-                    <span className="text-lg text-gray-700">{req}</span>
+                    <CheckCircle className="w-5 h-5 text-pollocks-blue shrink-0" />
+                    <span className="text-sm text-gray-700">{req}</span>
                   </motion.div>
                 ))}
               </div>
@@ -252,18 +252,18 @@ export default function AdmissionsPage() {
           </section>
 
           {/* Process Timeline */}
-          <div id="process-section" className="h-screen shrink-0">
+          <div id="process-section" className="h-screen shrink-0 pt-20">
             <ProcessTimeline />
           </div>
 
           {/* Branches */}
-          <section className="w-screen h-screen shrink-0 bg-pollocks-navy text-white flex items-center justify-center px-12">
+          <section className="w-screen h-screen shrink-0 bg-pollocks-navy text-white flex items-center justify-center px-8 pt-20">
             <div className="max-w-6xl mx-auto">
-              <div className="text-center mb-16">
-                <h2 className="text-4xl lg:text-5xl font-serif font-bold mb-4">Our Branches</h2>
-                <p className="text-lg text-gray-400 max-w-2xl mx-auto">Visit any of our campuses across Visakhapatnam</p>
+              <div className="text-center mb-10">
+                <h2 className="text-3xl lg:text-4xl font-serif font-bold mb-3">Our Branches</h2>
+                <p className="text-base text-gray-400 max-w-2xl mx-auto">Visit any of our campuses across Visakhapatnam</p>
               </div>
-              <div className="grid grid-cols-2 gap-8">
+              <div className="grid grid-cols-2 gap-6">
                 {branches.map((branch, index) => (
                   <motion.div
                     key={index}
@@ -271,11 +271,11 @@ export default function AdmissionsPage() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: index * 0.1 }}
-                    className="bg-white/5 backdrop-blur-sm p-8 rounded-3xl border border-white/10 hover:border-pollocks-blue/50 transition-colors"
+                    className="bg-white/5 backdrop-blur-sm p-6 rounded-2xl border border-white/10 hover:border-pollocks-blue/50 transition-colors"
                   >
-                    <h3 className="text-2xl font-serif font-bold mb-4">{branch.name}</h3>
-                    <div className="flex items-start gap-3 mb-3 text-gray-400">
-                      <MapPin className="w-5 h-5 shrink-0 mt-1 text-pollocks-blue" />
+                    <h3 className="text-xl font-serif font-bold mb-3">{branch.name}</h3>
+                    <div className="flex items-start gap-2 mb-2 text-gray-400 text-sm">
+                      <MapPin className="w-4 h-4 shrink-0 mt-0.5 text-pollocks-blue" />
                       <span>{branch.address}</span>
                     </div>
                     <div className="flex items-center gap-3 text-gray-400">
@@ -289,17 +289,13 @@ export default function AdmissionsPage() {
           </section>
 
           {/* Admission Form */}
-          <section className="w-screen h-screen shrink-0 bg-white flex items-center justify-center px-8">
-             <div className="h-full w-full overflow-y-auto flex items-center py-12">
-                <LeadForm />
-             </div>
+          <section className="w-screen h-screen shrink-0 bg-mesh-light flex items-center justify-center px-8">
+            <LeadForm />
           </section>
 
           {/* Footer */}
           <section id="footer-section" className="w-screen h-screen shrink-0 bg-pollocks-black flex items-center justify-center">
-             <div className="w-full h-full flex items-center overflow-y-auto lg:overflow-hidden">
-                <Footer />
-             </div>
+            <Footer />
           </section>
 
         </div>
