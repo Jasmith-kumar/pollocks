@@ -109,12 +109,12 @@ export default function ContactPage() {
     );
   }
 
-  // Mobile Layout
+  // Mobile Layout - Improved Spacing
   if (isMobile) {
     return (
       <main className="bg-white min-h-screen pt-16 md:pt-20">
         {/* Hero */}
-        <section className="bg-pollocks-navy text-white py-20 md:py-28 px-4 sm:px-6 text-center relative overflow-hidden">
+        <section className="bg-pollocks-navy text-white py-20 sm:py-24 md:py-28 px-5 sm:px-8 text-center relative overflow-hidden">
           <div className="absolute inset-0 z-0">
             <img 
               src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?q=90&w=2000&auto=format&fit=crop" 
@@ -125,22 +125,22 @@ export default function ContactPage() {
           </div>
           
           <div className="relative z-10 max-w-4xl mx-auto">
-            <span className="text-pollocks-blue uppercase tracking-[0.2em] text-xs sm:text-sm font-medium block mb-3">
+            <span className="text-pollocks-blue uppercase tracking-[0.2em] text-xs sm:text-sm font-medium block mb-4">
               Get in Touch
             </span>
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold mb-4">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold mb-5">
               Contact Us
             </h1>
-            <p className="text-base sm:text-lg text-gray-300 max-w-2xl mx-auto">
+            <p className="text-base sm:text-lg text-gray-300 max-w-2xl mx-auto leading-relaxed">
               We'd love to hear from you. Reach out for any queries about admissions or general information.
             </p>
           </div>
         </section>
 
         {/* Contact Info */}
-        <section className="py-12 md:py-16 px-4 sm:px-6">
+        <section className="py-16 sm:py-20 md:py-24 px-5 sm:px-8">
           <div className="max-w-4xl mx-auto">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-12">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-14">
               {contactInfo.map((info, index) => (
                 <div
                   key={index}
@@ -254,7 +254,9 @@ export default function ContactPage() {
           />
         </section>
 
-        <Footer />
+        <section className="bg-pollocks-black pt-16 pb-8">
+          <Footer />
+        </section>
       </main>
     );
   }

@@ -86,12 +86,12 @@ export default function AdmissionsPage() {
     );
   }
 
-  // Mobile Layout
+  // Mobile Layout - Improved Spacing
   if (isMobile) {
     return (
       <main className="bg-white min-h-screen pt-16 md:pt-20">
         {/* Hero */}
-        <section className="bg-pollocks-navy text-white py-20 md:py-28 px-4 sm:px-6 text-center relative overflow-hidden">
+        <section className="bg-pollocks-navy text-white py-20 sm:py-24 md:py-28 px-5 sm:px-8 text-center relative overflow-hidden">
           <div className="absolute inset-0 z-0">
             <img 
               src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=90&w=2000&auto=format&fit=crop" 
@@ -102,28 +102,31 @@ export default function AdmissionsPage() {
           </div>
           
           <div className="relative z-10 max-w-4xl mx-auto">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-pollocks-blue/20 border border-pollocks-blue/30 text-pollocks-blue-light text-xs sm:text-sm font-medium mb-4">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-pollocks-blue/20 border border-pollocks-blue/30 text-pollocks-blue-light text-xs sm:text-sm font-medium mb-5">
               <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
               Admissions Open 2025-26
             </div>
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold mb-4">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold mb-5">
               Join Pollocks School
             </h1>
-            <p className="text-base sm:text-lg text-gray-300 max-w-2xl mx-auto">
+            <p className="text-base sm:text-lg text-gray-300 max-w-2xl mx-auto leading-relaxed">
               Begin your child's journey towards a bright future with quality CBSE education.
             </p>
           </div>
         </section>
 
         {/* Requirements */}
-        <section className="py-12 md:py-16 px-4 sm:px-6 bg-gray-50">
+        <section className="py-16 sm:py-20 md:py-24 px-5 sm:px-8 bg-gray-50">
           <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-serif font-bold text-pollocks-black mb-6">Required Documents</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-serif font-bold text-pollocks-black mb-4">Required Documents</h2>
+            <p className="text-gray-500 text-sm sm:text-base max-w-md mx-auto mb-8">
+              Please keep the following documents ready for the admission process.
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
               {requirements.map((req, index) => (
                 <div
                   key={index}
-                  className="flex items-center gap-3 p-4 bg-white rounded-xl shadow-sm"
+                  className="flex items-center gap-4 p-5 bg-white rounded-xl shadow-sm"
                 >
                   <CheckCircle className="w-5 h-5 text-pollocks-blue shrink-0" />
                   <span className="text-sm sm:text-base text-gray-700 text-left">{req}</span>
@@ -134,26 +137,29 @@ export default function AdmissionsPage() {
         </section>
 
         {/* Admission Process */}
-        <section className="py-12 md:py-16 bg-white overflow-x-auto">
+        <section className="py-16 sm:py-20 md:py-24 bg-white overflow-x-auto">
           <ProcessTimeline />
         </section>
 
         {/* Branches */}
-        <section className="py-12 md:py-16 px-4 sm:px-6 bg-pollocks-sky">
+        <section className="py-16 sm:py-20 md:py-24 px-5 sm:px-8 bg-pollocks-sky">
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-2xl sm:text-3xl font-serif font-bold text-pollocks-black mb-8 text-center">Our Branches</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
+            <h2 className="text-2xl sm:text-3xl font-serif font-bold text-pollocks-black mb-4 text-center">Our Branches</h2>
+            <p className="text-gray-500 text-sm sm:text-base max-w-md mx-auto mb-10 text-center">
+              Visit any of our campuses across Visakhapatnam
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-6">
               {branches.map((branch, index) => (
                 <div
                   key={index}
-                  className="bg-white p-5 sm:p-6 rounded-2xl shadow-lg"
+                  className="bg-white p-6 rounded-2xl shadow-lg"
                 >
-                  <h3 className="text-lg sm:text-xl font-serif font-bold text-pollocks-black mb-3">{branch.name}</h3>
-                  <div className="flex items-start gap-2 mb-2 text-gray-600 text-sm">
+                  <h3 className="text-lg sm:text-xl font-serif font-bold text-pollocks-black mb-4">{branch.name}</h3>
+                  <div className="flex items-start gap-3 mb-3 text-gray-600 text-sm">
                     <MapPin className="w-4 h-4 shrink-0 mt-0.5 text-pollocks-blue" />
                     <span>{branch.address}</span>
                   </div>
-                  <div className="flex items-center gap-2 text-gray-600 text-sm">
+                  <div className="flex items-center gap-3 text-gray-600 text-sm">
                     <Phone className="w-4 h-4 shrink-0 text-pollocks-blue" />
                     <a href={`tel:${branch.phone}`} className="hover:text-pollocks-blue transition-colors">{branch.phone}</a>
                   </div>
@@ -164,11 +170,13 @@ export default function AdmissionsPage() {
         </section>
 
         {/* Admission Form */}
-        <section className="py-12 md:py-16 bg-white">
+        <section className="py-16 sm:py-20 md:py-24 bg-gradient-to-b from-white to-pollocks-sky/30">
           <LeadForm />
         </section>
 
-        <Footer />
+        <section className="bg-pollocks-black pt-16 pb-8">
+          <Footer />
+        </section>
       </main>
     );
   }

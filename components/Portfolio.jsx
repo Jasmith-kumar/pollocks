@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
@@ -39,32 +38,15 @@ export default function CampusGallery() {
       <section id="gallery-section" className="hidden lg:flex h-full w-fit min-w-screen items-center bg-pollocks-black text-white relative overflow-hidden">
         {/* Intro Panel */}
         <div id="gallery-panel" className="w-[320px] shrink-0 h-full flex flex-col justify-center px-10 border-r border-white/10 bg-pollocks-black z-20 relative overflow-hidden">
-          <motion.span
-            initial={{ opacity: 0, y: 15 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-pollocks-blue uppercase tracking-[0.15em] text-xs font-medium block mb-3"
-          >
+          <span className="text-pollocks-blue uppercase tracking-[0.15em] text-xs font-medium block mb-3">
             Campus Life
-          </motion.span>
-          <motion.h2
-            initial={{ opacity: 0, y: 15 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            className="text-3xl xl:text-4xl font-serif font-bold mb-4 leading-tight"
-          >
+          </span>
+          <h2 className="text-3xl xl:text-4xl font-serif font-bold mb-4 leading-tight">
             Selected <br /> Works
-          </motion.h2>
-          <motion.p
-            initial={{ opacity: 0, y: 15 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-            className="text-sm text-gray-400 mb-6 leading-relaxed"
-          >
+          </h2>
+          <p className="text-sm text-gray-400 mb-6 leading-relaxed">
             A curated collection of our campus facilities and learning environments.
-          </motion.p>
+          </p>
           <Link
             href="/gallery"
             className="inline-flex items-center gap-2 text-pollocks-blue hover:text-pollocks-blue-light transition-colors text-sm font-medium group"
@@ -76,12 +58,8 @@ export default function CampusGallery() {
         {/* Gallery Grid */}
         <div className="flex gap-4 px-6 h-full items-center py-8">
           {galleryItems.map((item, index) => (
-            <motion.div
+            <div
               key={index}
-              initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
               className="relative group shrink-0"
             >
               <div className={`relative overflow-hidden rounded-xl ${index === 0 ? 'w-64 h-72' : 'w-52 h-64'}`}>
@@ -96,41 +74,46 @@ export default function CampusGallery() {
                   <h3 className="text-white font-serif text-base font-medium">{item.title}</h3>
                 </div>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
       </section>
 
-      {/* Mobile Version */}
-      <section className="lg:hidden py-12 bg-pollocks-black text-white px-4 sm:px-6">
-        <div className="text-center mb-8">
-          <span className="text-pollocks-blue uppercase tracking-[0.15em] text-xs font-medium block mb-2">Campus Life</span>
-          <h2 className="text-2xl sm:text-3xl font-serif font-bold mb-3">Selected Works</h2>
-          <p className="text-sm text-gray-400 max-w-md mx-auto">A curated collection of our campus facilities.</p>
+      {/* Mobile Version - Better Spacing */}
+      <section className="lg:hidden bg-pollocks-black text-white px-5 sm:px-8">
+        {/* Header with more spacing */}
+        <div className="text-center mb-10">
+          <span className="text-pollocks-blue uppercase tracking-[0.15em] text-xs font-medium block mb-3">
+            Campus Life
+          </span>
+          <h2 className="text-2xl sm:text-3xl font-serif font-bold mb-4">
+            Selected Works
+          </h2>
+          <p className="text-sm sm:text-base text-gray-400 max-w-md mx-auto leading-relaxed">
+            A curated collection of our campus facilities and learning environments.
+          </p>
         </div>
         
-        <div className="grid grid-cols-2 gap-3">
+        {/* Gallery Grid with better spacing */}
+        <div className="grid grid-cols-2 gap-4 sm:gap-5">
           {galleryItems.slice(0, 4).map((item, index) => (
-            <motion.div
+            <div
               key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
               className="relative overflow-hidden rounded-xl aspect-[3/4]"
             >
               <img src={item.image} alt={item.title} className="w-full h-full object-cover" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
-              <div className="absolute bottom-3 left-3 right-3">
-                <p className="text-pollocks-blue text-[10px] uppercase tracking-wider mb-0.5">{item.category}</p>
-                <h3 className="text-white font-serif text-sm font-medium">{item.title}</h3>
+              <div className="absolute bottom-4 left-4 right-4">
+                <p className="text-pollocks-blue text-[10px] sm:text-xs uppercase tracking-wider mb-1">{item.category}</p>
+                <h3 className="text-white font-serif text-sm sm:text-base font-medium">{item.title}</h3>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
         
-        <div className="text-center mt-6">
-          <Link href="/gallery" className="inline-flex items-center gap-2 text-pollocks-blue text-sm font-medium">
+        {/* CTA with more spacing */}
+        <div className="text-center mt-8 pb-2">
+          <Link href="/gallery" className="inline-flex items-center gap-2 text-pollocks-blue text-sm font-medium hover:text-pollocks-blue-light transition-colors">
             Explore All <ArrowRight className="w-4 h-4" />
           </Link>
         </div>

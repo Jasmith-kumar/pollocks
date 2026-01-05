@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { FileText, FormInput, ClipboardCheck, UserCheck, Key, GraduationCap } from "lucide-react";
 
 const steps = [
@@ -19,23 +18,12 @@ export default function AdmissionProcess() {
       <section className="hidden lg:flex w-screen min-w-screen h-full bg-white items-center px-8 lg:px-10 shrink-0 overflow-hidden">
         <div className="w-full max-w-full">
           <div className="mb-8">
-            <motion.span
-              initial={{ opacity: 0, y: 15 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="text-pollocks-blue uppercase tracking-[0.15em] text-xs font-medium block mb-2"
-            >
+            <span className="text-pollocks-blue uppercase tracking-[0.15em] text-xs font-medium block mb-2">
               How it Works
-            </motion.span>
-            <motion.h2
-              initial={{ opacity: 0, y: 15 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
-              className="text-3xl lg:text-4xl font-serif font-bold text-pollocks-black"
-            >
+            </span>
+            <h2 className="text-3xl lg:text-4xl font-serif font-bold text-pollocks-black">
               Admission Process
-            </motion.h2>
+            </h2>
           </div>
 
           {/* Steps Grid */}
@@ -43,14 +31,7 @@ export default function AdmissionProcess() {
             {steps.map((step, index) => {
               const Icon = step.icon;
               return (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.08 }}
-                  className="group"
-                >
+                <div key={index} className="group">
                   <div className="relative bg-pollocks-sky/50 rounded-xl p-5 h-full hover:bg-pollocks-sky transition-colors">
                     {/* Step Number */}
                     <div className="absolute -top-3 -right-3 w-10 h-10 bg-pollocks-blue rounded-full flex items-center justify-center text-white font-bold text-sm shadow-md">
@@ -65,7 +46,7 @@ export default function AdmissionProcess() {
                     <h4 className="font-serif font-bold text-pollocks-black text-base mb-2">{step.title}</h4>
                     <p className="text-xs text-gray-600 leading-relaxed">{step.description}</p>
                   </div>
-                </motion.div>
+                </div>
               );
             })}
           </div>
@@ -77,34 +58,39 @@ export default function AdmissionProcess() {
         </div>
       </section>
 
-      {/* Mobile Version */}
-      <section className="lg:hidden py-12 bg-white px-4 sm:px-6">
-        <div className="text-center mb-8">
-          <span className="text-pollocks-blue uppercase tracking-[0.15em] text-xs font-medium block mb-2">How it Works</span>
-          <h2 className="text-2xl font-serif font-bold text-pollocks-black">Admission Process</h2>
+      {/* Mobile Version - Improved Spacing */}
+      <section className="lg:hidden bg-white px-5 sm:px-8">
+        {/* Header with better spacing */}
+        <div className="text-center mb-10">
+          <span className="text-pollocks-blue uppercase tracking-[0.15em] text-xs font-medium block mb-3">
+            How it Works
+          </span>
+          <h2 className="text-2xl sm:text-3xl font-serif font-bold text-pollocks-black mb-3">
+            Admission Process
+          </h2>
+          <p className="text-gray-500 text-sm sm:text-base max-w-md mx-auto">
+            Simple steps to join the Pollocks family
+          </p>
         </div>
 
-        <div className="grid grid-cols-2 gap-3">
+        {/* Steps Grid with better spacing */}
+        <div className="grid grid-cols-2 gap-4 sm:gap-5">
           {steps.map((step, index) => {
             const Icon = step.icon;
             return (
-              <motion.div
+              <div
                 key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.08 }}
-                className="relative bg-pollocks-sky/50 rounded-xl p-4"
+                className="relative bg-pollocks-sky/50 rounded-xl p-5"
               >
-                <div className="absolute -top-2 -right-2 w-8 h-8 bg-pollocks-blue rounded-full flex items-center justify-center text-white font-bold text-xs">
+                <div className="absolute -top-2 -right-2 w-8 h-8 bg-pollocks-blue rounded-full flex items-center justify-center text-white font-bold text-xs shadow-md">
                   {step.number}
                 </div>
-                <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center mb-2 shadow-sm">
-                  <Icon className="w-4 h-4 text-pollocks-blue" />
+                <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center mb-4 shadow-sm">
+                  <Icon className="w-5 h-5 text-pollocks-blue" />
                 </div>
-                <h4 className="font-serif font-bold text-pollocks-black text-sm mb-1">{step.title}</h4>
-                <p className="text-[10px] text-gray-600 leading-relaxed">{step.description}</p>
-              </motion.div>
+                <h4 className="font-serif font-bold text-pollocks-black text-sm sm:text-base mb-2">{step.title}</h4>
+                <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">{step.description}</p>
+              </div>
             );
           })}
         </div>

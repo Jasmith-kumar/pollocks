@@ -137,7 +137,7 @@ export default function AboutPage() {
     );
   }
 
-  // Mobile Layout
+  // Mobile Layout - Improved Spacing
   if (isMobile) {
     return (
       <main className="bg-white selection:bg-pollocks-blue selection:text-white pt-16 md:pt-20">
@@ -145,31 +145,33 @@ export default function AboutPage() {
           <AboutHero />
         </div>
         
-        <section className="bg-pollocks-sky py-12">
+        <section className="py-16 sm:py-20 md:py-24 bg-pollocks-sky">
           <DirectorShowcase />
         </section>
 
-        <section className="py-16 bg-white overflow-x-auto">
+        <section className="py-16 sm:py-20 md:py-24 bg-white overflow-x-auto">
           <AboutTimeline />
         </section>
 
-        <section className="bg-pollocks-navy">
+        <section className="py-16 sm:py-20 md:py-24 bg-pollocks-navy">
           <StatsSection />
         </section>
 
-        <section className="py-16 bg-white">
+        <section className="py-16 sm:py-20 md:py-24 bg-white">
           <TeamSection />
         </section>
 
-        <section className="py-16 bg-pollocks-navy">
+        <section className="py-16 sm:py-20 md:py-24 bg-pollocks-navy">
           <VideoShowcase />
         </section>
 
-        <section className="py-16 bg-white">
+        <section className="py-16 sm:py-20 md:py-24 bg-white">
           <Testimonials />
         </section>
 
-        <Footer />
+        <section className="bg-pollocks-black pt-16 pb-8">
+          <Footer />
+        </section>
       </main>
     );
   }

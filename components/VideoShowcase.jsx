@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useRef } from "react";
-import { motion } from "framer-motion";
 import { Play, Pause, Volume2, VolumeX } from "lucide-react";
 
 export default function VideoShowcase() {
@@ -28,46 +27,23 @@ export default function VideoShowcase() {
   };
 
   return (
-    <div className="w-full h-full flex flex-col items-center justify-center px-6 md:px-10 lg:px-12">
+    <div className="w-full h-full flex flex-col items-center justify-center px-5 sm:px-8 lg:px-12">
       <div className="w-full max-w-4xl mx-auto">
-        {/* Header - Centered */}
-        <div className="text-center mb-6 md:mb-8">
-          <motion.span
-            initial={{ opacity: 0, y: 15 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-pollocks-blue uppercase tracking-[0.15em] text-xs font-medium block mb-2"
-          >
+        {/* Header - Centered with better spacing */}
+        <div className="text-center mb-8 sm:mb-10 lg:mb-10">
+          <span className="text-pollocks-blue uppercase tracking-[0.15em] text-xs font-medium block mb-3">
             Campus Life
-          </motion.span>
-          <motion.h2
-            initial={{ opacity: 0, y: 15 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            className="text-2xl md:text-3xl lg:text-4xl font-serif font-bold text-white mb-2"
-          >
+          </span>
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-serif font-bold text-white mb-4">
             The Detail
-          </motion.h2>
-          <motion.p
-            initial={{ opacity: 0, y: 15 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-            className="text-gray-400 text-sm max-w-md mx-auto"
-          >
-            See how we bring learning to life with quality education.
-          </motion.p>
+          </h2>
+          <p className="text-gray-400 text-sm sm:text-base max-w-md mx-auto leading-relaxed">
+            See how we bring learning to life with quality education and modern facilities.
+          </p>
         </div>
 
         {/* Video Container - Centered */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.3 }}
-          className="relative aspect-video w-full max-w-4xl mx-auto rounded-2xl overflow-hidden shadow-2xl group"
-        >
+        <div className="relative aspect-video w-full max-w-4xl mx-auto rounded-2xl overflow-hidden shadow-2xl group">
           {/* Video Placeholder */}
           <div className="absolute inset-0 bg-gradient-to-br from-pollocks-blue/20 to-pollocks-navy">
             <img
@@ -82,26 +58,22 @@ export default function VideoShowcase() {
             onClick={togglePlay}
             className="absolute inset-0 flex items-center justify-center cursor-pointer"
           >
-            <motion.div
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-              className="w-16 h-16 md:w-20 md:h-20 bg-pollocks-blue rounded-full flex items-center justify-center shadow-lg shadow-pollocks-blue/50 group-hover:shadow-xl transition-shadow"
-            >
+            <div className="w-16 h-16 sm:w-18 sm:h-18 md:w-20 md:h-20 bg-pollocks-blue rounded-full flex items-center justify-center shadow-lg shadow-pollocks-blue/50 hover:shadow-xl hover:scale-110 transition-all duration-300">
               {isPlaying ? (
-                <Pause className="w-6 h-6 md:w-8 md:h-8 text-white" />
+                <Pause className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 text-white" />
               ) : (
-                <Play className="w-6 h-6 md:w-8 md:h-8 text-white ml-1" />
+                <Play className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 text-white ml-1" />
               )}
-            </motion.div>
+            </div>
           </div>
 
           {/* Controls */}
           <div className="absolute bottom-4 right-4 flex gap-2">
             <button
               onClick={(e) => { e.stopPropagation(); toggleMute(); }}
-              className="w-8 h-8 bg-black/50 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-black/70 transition-colors"
+              className="w-8 h-8 sm:w-10 sm:h-10 bg-black/50 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-black/70 transition-colors"
             >
-              {isMuted ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4" />}
+              {isMuted ? <VolumeX className="w-4 h-4 sm:w-5 sm:h-5" /> : <Volume2 className="w-4 h-4 sm:w-5 sm:h-5" />}
             </button>
           </div>
 
@@ -115,7 +87,7 @@ export default function VideoShowcase() {
           >
             <source src="/videos/campus-tour.mp4" type="video/mp4" />
           </video>
-        </motion.div>
+        </div>
       </div>
     </div>
   );

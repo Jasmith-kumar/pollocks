@@ -21,9 +21,8 @@ export default function Home() {
   const containerRef = useRef(null);
   const wrapperRef = useRef(null);
   const [mounted, setMounted] = useState(false);
-  const [isMobile, setIsMobile] = useState(true); // Default to mobile to prevent flash
+  const [isMobile, setIsMobile] = useState(true);
 
-  // Check if mobile/tablet
   useEffect(() => {
     setMounted(true);
     const checkMobile = () => {
@@ -34,11 +33,9 @@ export default function Home() {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  // GSAP horizontal scroll - only on desktop
   useEffect(() => {
     if (!mounted || isMobile) return;
 
-    // Small delay to ensure DOM is ready
     const timer = setTimeout(() => {
       const container = containerRef.current;
       const wrapper = wrapperRef.current;
@@ -109,7 +106,6 @@ export default function Home() {
           }
         });
 
-        // Pin the Gallery Intro Panel
         const gallerySection = document.querySelector("#gallery-section");
         if (gallerySection) {
           gsap.to("#gallery-panel", {
@@ -126,7 +122,6 @@ export default function Home() {
         }
       }, container);
 
-      // Store context for cleanup
       containerRef.current._gsapContext = ctx;
     }, 100);
 
@@ -139,7 +134,6 @@ export default function Home() {
     };
   }, [mounted, isMobile]);
 
-  // Handle hash navigation on mount (desktop only)
   useEffect(() => {
     if (!mounted || isMobile) return;
     
@@ -172,7 +166,6 @@ export default function Home() {
     return () => clearTimeout(timer);
   }, [mounted, isMobile]);
 
-  // Show loading state until mounted
   if (!mounted) {
     return (
       <main className="bg-white min-h-screen flex items-center justify-center">
@@ -181,43 +174,52 @@ export default function Home() {
     );
   }
 
-  // Mobile/Tablet: Vertical scroll layout
+  // Mobile/Tablet: Vertical scroll layout with improved spacing
   if (isMobile) {
     return (
       <main className="bg-white selection:bg-pollocks-blue selection:text-white overflow-x-hidden max-w-full">
+        {/* Hero - Full Screen */}
         <section className="h-screen w-full overflow-hidden">
           <Hero />
         </section>
 
-        <section className="bg-pollocks-sky w-full overflow-hidden">
+        {/* Director Section - More padding */}
+        <section className="py-16 sm:py-20 md:py-24 bg-pollocks-sky w-full overflow-hidden">
           <DirectorShowcase />
         </section>
 
-        <section className="py-12 bg-white w-full overflow-hidden">
+        {/* Academics Grid - More padding */}
+        <section className="py-16 sm:py-20 md:py-24 bg-white w-full overflow-hidden">
           <AcademicsGrid />
         </section>
 
-        <section className="bg-pollocks-black w-full overflow-hidden">
+        {/* Campus Gallery - More padding */}
+        <section className="py-16 sm:py-20 md:py-24 bg-pollocks-black w-full overflow-hidden">
           <CampusGallery />
         </section>
 
+        {/* Activities - Component handles its own padding */}
         <section className="w-full overflow-hidden">
           <ActivitiesShowcase />
         </section>
 
-        <section className="py-12 bg-white w-full overflow-hidden">
+        {/* Admission Process - More padding */}
+        <section className="py-16 sm:py-20 md:py-24 bg-white w-full overflow-hidden">
           <AdmissionProcess />
         </section>
 
-        <section className="py-12 bg-pollocks-navy w-full overflow-hidden">
+        {/* Video Section - More padding */}
+        <section className="py-16 sm:py-20 md:py-24 bg-pollocks-navy w-full overflow-hidden">
           <VideoShowcase />
         </section>
 
-        <section className="py-12 bg-white w-full overflow-hidden">
+        {/* Admission Form - More padding */}
+        <section className="py-16 sm:py-20 md:py-24 bg-gradient-to-b from-white to-pollocks-sky/30 w-full overflow-hidden">
           <AdmissionForm />
         </section>
 
-        <section id="footer-section" className="bg-pollocks-black w-full overflow-hidden py-12">
+        {/* Footer */}
+        <section id="footer-section" className="bg-pollocks-black w-full overflow-hidden pt-16 pb-8">
           <Footer />
         </section>
       </main>

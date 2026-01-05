@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const activities = [
@@ -40,43 +39,22 @@ export default function ActivitiesShowcase() {
         <div className="w-full max-w-6xl mx-auto grid grid-cols-2 gap-10 items-center">
           {/* Content */}
           <div>
-            <motion.span
-              initial={{ opacity: 0, y: 15 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="text-pollocks-blue uppercase tracking-[0.15em] text-xs font-medium block mb-3"
-            >
+            <span className="text-pollocks-blue uppercase tracking-[0.15em] text-xs font-medium block mb-3">
               Beyond Academics
-            </motion.span>
-            <motion.h2
-              initial={{ opacity: 0, y: 15 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
-              className="text-3xl lg:text-4xl font-serif font-bold text-pollocks-black mb-4"
-            >
+            </span>
+            <h2 className="text-3xl lg:text-4xl font-serif font-bold text-pollocks-black mb-4">
               Co-Curricular Activities
-            </motion.h2>
-            <motion.p
-              initial={{ opacity: 0, y: 15 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
-              className="text-sm text-gray-600 mb-6 max-w-sm"
-            >
+            </h2>
+            <p className="text-sm text-gray-600 mb-6 max-w-sm leading-relaxed">
               Holistic development through diverse extracurricular programs that nurture talents and build character.
-            </motion.p>
+            </p>
 
             {/* Activity List */}
             <div className="space-y-2">
               {activities.map((activity, index) => (
-                <motion.button
+                <button
                   key={index}
                   onClick={() => setActiveIndex(index)}
-                  initial={{ opacity: 0, x: -15 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.08 }}
                   className={`w-full text-left p-4 rounded-xl transition-all duration-300 ${
                     activeIndex === index
                       ? "bg-pollocks-blue text-white shadow-lg"
@@ -84,15 +62,15 @@ export default function ActivitiesShowcase() {
                   }`}
                 >
                   <h4 className="font-semibold text-sm mb-1">{activity.title}</h4>
-                  <p className={`text-xs ${activeIndex === index ? "text-white/80" : "text-gray-500"}`}>
+                  <p className={`text-xs leading-relaxed ${activeIndex === index ? "text-white/80" : "text-gray-500"}`}>
                     {activity.description}
                   </p>
-                </motion.button>
+                </button>
               ))}
             </div>
           </div>
 
-          {/* Image - Using CSS transitions instead of AnimatePresence */}
+          {/* Image */}
           <div className="relative">
             <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-xl">
               {activities.map((activity, index) => (
@@ -130,15 +108,23 @@ export default function ActivitiesShowcase() {
         </div>
       </section>
 
-      {/* Mobile Version */}
-      <section className="lg:hidden py-12 bg-pollocks-sky px-4 sm:px-6">
-        <div className="text-center mb-6">
-          <span className="text-pollocks-blue uppercase tracking-[0.15em] text-xs font-medium block mb-2">Beyond Academics</span>
-          <h2 className="text-2xl font-serif font-bold text-pollocks-black mb-2">Co-Curricular Activities</h2>
-          <p className="text-sm text-gray-600 max-w-md mx-auto">Holistic development through diverse programs.</p>
+      {/* Mobile Version - Improved Spacing */}
+      <section className="lg:hidden py-16 sm:py-20 md:py-24 bg-pollocks-sky px-5 sm:px-8">
+        {/* Header with better spacing */}
+        <div className="text-center mb-10">
+          <span className="text-pollocks-blue uppercase tracking-[0.15em] text-xs font-medium block mb-3">
+            Beyond Academics
+          </span>
+          <h2 className="text-2xl sm:text-3xl font-serif font-bold text-pollocks-black mb-4">
+            Co-Curricular Activities
+          </h2>
+          <p className="text-sm sm:text-base text-gray-600 max-w-md mx-auto leading-relaxed">
+            Holistic development through diverse extracurricular programs.
+          </p>
         </div>
 
-        <div className="grid grid-cols-2 gap-3">
+        {/* Activity Cards with better spacing */}
+        <div className="grid grid-cols-2 gap-4 sm:gap-5">
           {activities.map((activity, index) => (
             <div
               key={index}
@@ -146,8 +132,8 @@ export default function ActivitiesShowcase() {
             >
               <img src={activity.image} alt={activity.title} className="w-full h-full object-cover" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
-              <div className="absolute bottom-3 left-3 right-3">
-                <h3 className="text-white font-serif text-sm font-medium">{activity.title}</h3>
+              <div className="absolute bottom-4 left-4 right-4">
+                <h3 className="text-white font-serif text-sm sm:text-base font-medium">{activity.title}</h3>
               </div>
             </div>
           ))}

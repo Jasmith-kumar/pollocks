@@ -172,12 +172,12 @@ export default function GalleryPage() {
     );
   }
 
-  // Mobile/Tablet Layout
+  // Mobile/Tablet Layout - Improved Spacing
   if (isMobile) {
     return (
       <main className="bg-white min-h-screen pt-16 md:pt-20">
         {/* Hero */}
-        <section className="bg-pollocks-navy text-white py-20 md:py-28 px-4 sm:px-6 text-center relative overflow-hidden">
+        <section className="bg-pollocks-navy text-white py-20 sm:py-24 md:py-28 px-5 sm:px-8 text-center relative overflow-hidden">
           <div className="absolute inset-0 z-0">
             <img 
               src="https://images.unsplash.com/photo-1580582932707-520aed937b7b?q=90&w=2000&auto=format&fit=crop" 
@@ -188,27 +188,27 @@ export default function GalleryPage() {
           </div>
           
           <div className="relative z-10 max-w-4xl mx-auto">
-            <span className="text-pollocks-blue uppercase tracking-[0.2em] text-xs sm:text-sm font-medium block mb-3">
+            <span className="text-pollocks-blue uppercase tracking-[0.2em] text-xs sm:text-sm font-medium block mb-4">
               Our Campus
             </span>
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold mb-4">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold mb-5">
               Photo Gallery
             </h1>
-            <p className="text-base sm:text-lg text-gray-300 max-w-2xl mx-auto">
+            <p className="text-base sm:text-lg text-gray-300 max-w-2xl mx-auto leading-relaxed">
               Explore our world-class facilities and vibrant campus life.
             </p>
           </div>
         </section>
 
         {/* Category Filter - Sticky */}
-        <section className="py-4 px-4 sm:px-6 border-b border-gray-100 sticky top-16 md:top-20 bg-white/95 backdrop-blur-md z-30">
-          <div className="flex gap-2 overflow-x-auto no-scrollbar">
+        <section className="py-4 px-5 sm:px-8 border-b border-gray-100 sticky top-16 md:top-20 bg-white/95 backdrop-blur-md z-30">
+          <div className="flex gap-2 sm:gap-3 overflow-x-auto no-scrollbar">
             {categories.map((category) => (
               <button
                 key={category}
                 type="button"
                 onClick={() => handleCategoryClick(category)}
-                className={`px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all ${
+                className={`px-4 py-2.5 rounded-full text-sm font-medium whitespace-nowrap transition-all ${
                   selectedCategory === category 
                     ? "bg-pollocks-blue text-white" 
                     : "bg-gray-100 text-gray-600 hover:bg-gray-200"
@@ -221,9 +221,9 @@ export default function GalleryPage() {
         </section>
 
         {/* Photo Grid - Mobile */}
-        <section className="py-8 px-4 sm:px-6">
+        <section className="py-10 sm:py-12 px-5 sm:px-8">
           <div className="max-w-4xl mx-auto">
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 gap-4 sm:gap-5">
               {filteredImages.map((image, index) => (
                 <div
                   key={image.id}
@@ -240,9 +240,9 @@ export default function GalleryPage() {
                     />
                   </div>
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
-                  <div className="absolute bottom-0 left-0 right-0 p-3">
-                    <p className="text-pollocks-blue text-[10px] uppercase tracking-wider mb-0.5">{image.category}</p>
-                    <h3 className="text-white text-sm font-serif font-bold">{image.title}</h3>
+                  <div className="absolute bottom-0 left-0 right-0 p-4">
+                    <p className="text-pollocks-blue text-[10px] sm:text-xs uppercase tracking-wider mb-1">{image.category}</p>
+                    <h3 className="text-white text-sm sm:text-base font-serif font-bold">{image.title}</h3>
                   </div>
                 </div>
               ))}
@@ -250,7 +250,9 @@ export default function GalleryPage() {
           </div>
         </section>
 
-        <Footer />
+        <section className="bg-pollocks-black pt-16 pb-8">
+          <Footer />
+        </section>
 
         {/* Lightbox */}
         {selectedImage && (

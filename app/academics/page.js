@@ -130,12 +130,12 @@ export default function AcademicsPage() {
     );
   }
 
-  // Mobile Layout
+  // Mobile Layout - Improved Spacing
   if (isMobile) {
     return (
       <main className="bg-white min-h-screen pt-16 md:pt-20">
         {/* Hero */}
-        <section className="bg-pollocks-navy text-white py-20 md:py-28 px-4 sm:px-6 text-center relative overflow-hidden">
+        <section className="bg-pollocks-navy text-white py-20 sm:py-24 md:py-28 px-5 sm:px-8 text-center relative overflow-hidden">
           <div className="absolute inset-0 z-0">
             <img 
               src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=90&w=2000&auto=format&fit=crop" 
@@ -146,34 +146,36 @@ export default function AcademicsPage() {
           </div>
           
           <div className="relative z-10 max-w-4xl mx-auto">
-            <span className="text-pollocks-blue uppercase tracking-[0.2em] text-xs sm:text-sm font-medium block mb-3">
+            <span className="text-pollocks-blue uppercase tracking-[0.2em] text-xs sm:text-sm font-medium block mb-4">
               CBSE Curriculum
             </span>
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold mb-4">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold mb-5">
               Our Academics
             </h1>
-            <p className="text-base sm:text-lg text-gray-300 max-w-2xl mx-auto">
+            <p className="text-base sm:text-lg text-gray-300 max-w-2xl mx-auto leading-relaxed">
               Quality education from Pre-Nursery to 10th Standard, nurturing young minds for a bright future.
             </p>
           </div>
         </section>
 
         {/* Programs Grid */}
-        <section className="py-12 md:py-16 px-4 sm:px-6">
-          <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+        <section className="py-16 sm:py-20 md:py-24 px-5 sm:px-8">
+          <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
             {programsList.map((program, index) => (
               <ProgramCard key={index} program={program} index={index} />
             ))}
           </div>
           
-          <div className="text-center mt-12">
-            <Link href="/admissions" className="inline-flex items-center gap-2 bg-pollocks-blue text-white px-8 py-4 rounded-full font-medium hover:bg-pollocks-blue-dark transition-colors">
+          <div className="text-center mt-14">
+            <Link href="/admissions" className="inline-flex items-center gap-2 bg-pollocks-blue text-white px-8 py-4 rounded-full font-medium hover:bg-pollocks-blue-dark transition-colors shadow-lg hover:shadow-xl">
               Apply for Admission
             </Link>
           </div>
         </section>
 
-        <Footer />
+        <section className="bg-pollocks-black pt-16 pb-8">
+          <Footer />
+        </section>
       </main>
     );
   }
