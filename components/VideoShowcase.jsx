@@ -27,23 +27,23 @@ export default function VideoShowcase() {
   };
 
   return (
-    <div className="w-full h-full lg:h-screen flex flex-col items-center justify-center px-5 sm:px-8 lg:px-12">
-      <div className="w-full max-w-4xl mx-auto">
-        {/* Header - Centered with better spacing */}
-        <div className="text-center mb-8 sm:mb-10 lg:mb-10">
-          <span className="text-pollocks-blue uppercase tracking-[0.15em] text-xs font-medium block mb-3">
+    <div className="w-full h-full lg:h-screen flex flex-col items-center justify-center px-5 sm:px-8 lg:px-12 py-8 lg:py-0">
+      <div className="w-full max-w-3xl mx-auto">
+        {/* Header - Centered */}
+        <div className="text-center mb-6 lg:mb-8">
+          <span className="text-pollocks-blue uppercase tracking-[0.15em] text-xs font-medium block mb-2">
             Campus Life
           </span>
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-serif font-bold text-white mb-4">
+          <h2 className="text-2xl sm:text-3xl lg:text-3xl font-serif font-bold text-white mb-3">
             The Detail
           </h2>
-          <p className="text-gray-400 text-sm sm:text-base max-w-md mx-auto leading-relaxed">
+          <p className="text-gray-400 text-sm max-w-md mx-auto leading-relaxed">
             See how we bring learning to life with quality education and modern facilities.
           </p>
         </div>
 
-        {/* Video Container - Centered */}
-        <div className="relative aspect-video w-full max-w-4xl mx-auto rounded-2xl overflow-hidden shadow-2xl group">
+        {/* Video Container - Centered and sized to fit */}
+        <div className="relative aspect-video w-full max-w-3xl mx-auto rounded-2xl overflow-hidden shadow-2xl group">
           {/* Video Placeholder */}
           <div className="absolute inset-0 bg-gradient-to-br from-pollocks-blue/20 to-pollocks-navy">
             <img

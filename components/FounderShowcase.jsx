@@ -61,11 +61,11 @@ export default function DirectorShowcase() {
       </div>
 
       {/* Desktop: Side by side layout - full height */}
-      <div className="hidden lg:flex h-screen w-full items-center px-10 xl:px-12">
-        <div className="w-full max-w-6xl mx-auto grid grid-cols-2 gap-12 items-center">
+      <div className="hidden lg:flex h-screen w-full items-center justify-center px-10 xl:px-12">
+        <div className="w-full max-w-5xl mx-auto grid grid-cols-2 gap-10 items-center">
           {/* Image Side */}
           <div className="relative">
-            <div className="relative aspect-[4/5] max-h-[60vh] overflow-hidden rounded-2xl shadow-xl transform rotate-2 hover:rotate-0 transition-transform duration-500">
+            <div className="relative aspect-[3/4] max-h-[55vh] overflow-hidden rounded-2xl shadow-xl transform rotate-2 hover:rotate-0 transition-transform duration-500">
               <img
                 src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=800&auto=format&fit=crop"
                 alt="Academic Director - Rajini Chitra"
@@ -74,7 +74,7 @@ export default function DirectorShowcase() {
               <div className="absolute inset-0 bg-gradient-to-t from-pollocks-navy/30 to-transparent" />
             </div>
             {/* Floating Quote Badge */}
-            <div className="absolute -bottom-6 -right-6 ios-glass p-5 rounded-2xl max-w-[200px]">
+            <div className="absolute -bottom-4 -right-4 ios-glass p-4 rounded-xl max-w-[180px]">
               <p className="text-xs font-medium text-pollocks-black italic leading-relaxed">
                 "To nurture bright, caring, enthusiastic, confident and well-balanced individuals."
               </p>
@@ -90,26 +90,26 @@ export default function DirectorShowcase() {
             </span>
             
             <h2 
-              className={`text-3xl xl:text-4xl font-bold mb-4 leading-tight font-serif transition-all duration-500 delay-100 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
+              className={`text-2xl xl:text-3xl font-bold mb-3 leading-tight font-serif transition-all duration-500 delay-100 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
             >
               Building Futures, <br /> One Child at a Time.
             </h2>
 
             <p 
-              className={`text-base text-gray-600 mb-4 leading-relaxed max-w-md transition-all duration-500 delay-200 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
+              className={`text-sm text-gray-600 mb-3 leading-relaxed max-w-md transition-all duration-500 delay-200 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
             >
               At Pollocks School, we believe every child is unique and deserves an education that nurtures their individual potential. Our holistic approach combines academic excellence with character development.
             </p>
 
             <p 
-              className={`text-base text-gray-600 mb-6 leading-relaxed max-w-md transition-all duration-500 delay-300 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
+              className={`text-sm text-gray-600 mb-4 leading-relaxed max-w-md transition-all duration-500 delay-300 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
             >
               With 58 years of experience in shaping young minds, we continue to innovate while staying true to our core values of integrity, excellence, and compassion.
             </p>
 
             {/* Signature */}
             <div className={`transition-all duration-500 delay-400 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-              <p className="text-xl font-serif text-pollocks-navy italic mb-1">Rajini Chitra</p>
+              <p className="text-lg font-serif text-pollocks-navy italic mb-1">Rajini Chitra</p>
               <p className="text-xs text-gray-500">Academic Director, Pollocks School</p>
             </div>
           </div>
