@@ -5,8 +5,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { motion } from "framer-motion";
 import Footer from "@/components/Footer";
-import { Phone, Mail, MapPin, Clock, Send } from "lucide-react";
-import { Button } from "@/components/ui/Button";
+import { Phone, Mail, MapPin, Clock, Send, CheckCircle } from "lucide-react";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -21,7 +20,10 @@ export default function ContactPage() {
   const containerRef = useRef(null);
   const wrapperRef = useRef(null);
   const [isMobile, setIsMobile] = useState(false);
-  const [formData, setFormData] = useState({ name: '', email: '', phone: '', message: '' });
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('+91 ');
+  const [message, setMessage] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
@@ -60,88 +62,30 @@ export default function ContactPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-    // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    setSubmitted(true);
-    setIsSubmitting(false);
-  };
+    
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, phone, message }),
+      });
 
-  // Contact Form Component
-  const ContactForm = () => (
-    <motion.form
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      onSubmit={handleSubmit}
-      className="ios-glass p-6 sm:p-8 rounded-2xl md:rounded-3xl max-w-xl w-full"
-    >
-      {submitted ? (
-        <div className="text-center py-8">
-          <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-            <Send className="w-8 h-8 text-green-600" />
-          </div>
-          <h3 className="text-xl sm:text-2xl font-serif font-bold text-pollocks-black mb-2">Thank You!</h3>
-          <p className="text-gray-600">We'll get back to you within 24 hours.</p>
-        </div>
-      ) : (
-        <>
-          <h3 className="text-xl sm:text-2xl font-serif font-bold text-pollocks-black mb-6">Send us a message</h3>
-          <div className="space-y-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Your Name</label>
-              <input
-                type="text"
-                required
-                value={formData.name}
-                onChange={(e) => setFormData({...formData, name: e.target.value})}
-                className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-pollocks-blue focus:ring-2 focus:ring-pollocks-blue/20 outline-none transition-all"
-                placeholder="Enter your name"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
-              <input
-                type="email"
-                required
-                value={formData.email}
-                onChange={(e) => setFormData({...formData, email: e.target.value})}
-                className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-pollocks-blue focus:ring-2 focus:ring-pollocks-blue/20 outline-none transition-all"
-                placeholder="your@email.com"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
-              <input
-                type="tel"
-                value={formData.phone}
-                onChange={(e) => setFormData({...formData, phone: e.target.value})}
-                className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-pollocks-blue focus:ring-2 focus:ring-pollocks-blue/20 outline-none transition-all"
-                placeholder="+91 XXXXX XXXXX"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Your Message</label>
-              <textarea
-                required
-                rows={4}
-                value={formData.message}
-                onChange={(e) => setFormData({...formData, message: e.target.value})}
-                className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-pollocks-blue focus:ring-2 focus:ring-pollocks-blue/20 outline-none transition-all resize-none"
-                placeholder="How can we help you?"
-              />
-            </div>
-            <Button 
-              type="submit" 
-              disabled={isSubmitting}
-              className="w-full py-4 bg-pollocks-blue text-white rounded-xl hover:bg-pollocks-blue-dark transition-colors disabled:opacity-50"
-            >
-              {isSubmitting ? 'Sending...' : 'Send Message'}
-            </Button>
-          </div>
-        </>
-      )}
-    </motion.form>
-  );
+      if (response.ok) {
+        setSubmitted(true);
+        setName('');
+        setEmail('');
+        setPhone('+91 ');
+        setMessage('');
+      } else {
+        alert('Failed to submit form. Please try again.');
+      }
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      alert('Failed to submit form. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   // Mobile Layout
   if (isMobile) {
@@ -215,8 +159,80 @@ export default function ContactPage() {
               ))}
             </div>
 
+            {/* Contact Form - Mobile */}
             <div className="flex justify-center">
-              <ContactForm />
+              <div className="bg-white border border-gray-200 shadow-xl p-5 sm:p-6 rounded-2xl max-w-md w-full">
+                {submitted ? (
+                  <div className="text-center py-8">
+                    <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                      <CheckCircle className="w-8 h-8 text-green-600" />
+                    </div>
+                    <h3 className="text-xl font-serif font-bold text-pollocks-black mb-2">Thank You!</h3>
+                    <p className="text-gray-600">We'll get back to you within 24 hours.</p>
+                  </div>
+                ) : (
+                  <form onSubmit={handleSubmit}>
+                    <h3 className="text-lg sm:text-xl font-serif font-bold text-pollocks-black mb-5">Send us a message</h3>
+                    <div className="space-y-4">
+                      <div>
+                        <label htmlFor="name-mobile" className="block text-sm font-medium text-gray-700 mb-1.5">Your Name *</label>
+                        <input
+                          id="name-mobile"
+                          type="text"
+                          required
+                          value={name}
+                          onChange={(e) => setName(e.target.value)}
+                          className="w-full px-4 py-3 rounded-xl border border-gray-300 bg-white text-gray-900 placeholder-gray-400 focus:border-pollocks-blue focus:ring-2 focus:ring-pollocks-blue/20 focus:outline-none transition-all"
+                          placeholder="Enter your name"
+                        />
+                      </div>
+                      <div>
+                        <label htmlFor="email-mobile" className="block text-sm font-medium text-gray-700 mb-1.5">Email Address *</label>
+                        <input
+                          id="email-mobile"
+                          type="email"
+                          required
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
+                          className="w-full px-4 py-3 rounded-xl border border-gray-300 bg-white text-gray-900 placeholder-gray-400 focus:border-pollocks-blue focus:ring-2 focus:ring-pollocks-blue/20 focus:outline-none transition-all"
+                          placeholder="your@email.com"
+                        />
+                      </div>
+                      <div>
+                        <label htmlFor="phone-mobile" className="block text-sm font-medium text-gray-700 mb-1.5">Phone Number</label>
+                        <input
+                          id="phone-mobile"
+                          type="tel"
+                          value={phone}
+                          onChange={(e) => setPhone(e.target.value)}
+                          className="w-full px-4 py-3 rounded-xl border border-gray-300 bg-white text-gray-900 placeholder-gray-400 focus:border-pollocks-blue focus:ring-2 focus:ring-pollocks-blue/20 focus:outline-none transition-all"
+                          placeholder="XXXXX XXXXX"
+                        />
+                      </div>
+                      <div>
+                        <label htmlFor="message-mobile" className="block text-sm font-medium text-gray-700 mb-1.5">Your Message *</label>
+                        <textarea
+                          id="message-mobile"
+                          required
+                          rows={4}
+                          value={message}
+                          onChange={(e) => setMessage(e.target.value)}
+                          className="w-full px-4 py-3 rounded-xl border border-gray-300 bg-white text-gray-900 placeholder-gray-400 focus:border-pollocks-blue focus:ring-2 focus:ring-pollocks-blue/20 focus:outline-none transition-all resize-none"
+                          placeholder="How can we help you?"
+                        />
+                      </div>
+                      <button 
+                        type="submit" 
+                        disabled={isSubmitting}
+                        className="w-full py-3.5 bg-pollocks-blue text-white rounded-xl hover:bg-pollocks-blue-dark transition-colors disabled:opacity-50 font-medium flex items-center justify-center gap-2"
+                      >
+                        {isSubmitting ? 'Sending...' : 'Send Message'}
+                        <Send className="w-4 h-4" />
+                      </button>
+                    </div>
+                  </form>
+                )}
+              </div>
             </div>
           </div>
         </section>
@@ -284,8 +300,8 @@ export default function ContactPage() {
           </section>
 
           {/* Contact Info & Form */}
-          <section className="w-screen h-screen shrink-0 bg-mesh-light flex items-center justify-center px-8">
-            <div className="max-w-6xl mx-auto grid grid-cols-2 gap-10 items-center">
+          <section className="w-screen h-screen shrink-0 bg-gray-50 flex items-center justify-center px-8">
+            <div className="max-w-5xl mx-auto grid grid-cols-2 gap-12 items-center">
               {/* Info */}
               <div>
                 <h2 className="text-3xl lg:text-4xl font-serif font-bold text-pollocks-black mb-6">Let's Connect</h2>
@@ -317,8 +333,79 @@ export default function ContactPage() {
                 </div>
               </div>
 
-              {/* Form */}
-              <ContactForm />
+              {/* Form - Desktop */}
+              <div className="bg-white border border-gray-200 shadow-xl p-6 rounded-2xl max-w-md w-full">
+                {submitted ? (
+                  <div className="text-center py-8">
+                    <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                      <CheckCircle className="w-8 h-8 text-green-600" />
+                    </div>
+                    <h3 className="text-xl font-serif font-bold text-pollocks-black mb-2">Thank You!</h3>
+                    <p className="text-gray-600">We'll get back to you within 24 hours.</p>
+                  </div>
+                ) : (
+                  <form onSubmit={handleSubmit}>
+                    <h3 className="text-xl font-serif font-bold text-pollocks-black mb-5">Send us a message</h3>
+                    <div className="space-y-4">
+                      <div>
+                        <label htmlFor="name-desktop" className="block text-sm font-medium text-gray-700 mb-1.5">Your Name *</label>
+                        <input
+                          id="name-desktop"
+                          type="text"
+                          required
+                          value={name}
+                          onChange={(e) => setName(e.target.value)}
+                          className="w-full px-4 py-3 rounded-xl border border-gray-300 bg-white text-gray-900 placeholder-gray-400 focus:border-pollocks-blue focus:ring-2 focus:ring-pollocks-blue/20 focus:outline-none transition-all"
+                          placeholder="Enter your name"
+                        />
+                      </div>
+                      <div>
+                        <label htmlFor="email-desktop" className="block text-sm font-medium text-gray-700 mb-1.5">Email Address *</label>
+                        <input
+                          id="email-desktop"
+                          type="email"
+                          required
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
+                          className="w-full px-4 py-3 rounded-xl border border-gray-300 bg-white text-gray-900 placeholder-gray-400 focus:border-pollocks-blue focus:ring-2 focus:ring-pollocks-blue/20 focus:outline-none transition-all"
+                          placeholder="your@email.com"
+                        />
+                      </div>
+                      <div>
+                        <label htmlFor="phone-desktop" className="block text-sm font-medium text-gray-700 mb-1.5">Phone Number</label>
+                        <input
+                          id="phone-desktop"
+                          type="tel"
+                          value={phone}
+                          onChange={(e) => setPhone(e.target.value)}
+                          className="w-full px-4 py-3 rounded-xl border border-gray-300 bg-white text-gray-900 placeholder-gray-400 focus:border-pollocks-blue focus:ring-2 focus:ring-pollocks-blue/20 focus:outline-none transition-all"
+                          placeholder="XXXXX XXXXX"
+                        />
+                      </div>
+                      <div>
+                        <label htmlFor="message-desktop" className="block text-sm font-medium text-gray-700 mb-1.5">Your Message *</label>
+                        <textarea
+                          id="message-desktop"
+                          required
+                          rows={3}
+                          value={message}
+                          onChange={(e) => setMessage(e.target.value)}
+                          className="w-full px-4 py-3 rounded-xl border border-gray-300 bg-white text-gray-900 placeholder-gray-400 focus:border-pollocks-blue focus:ring-2 focus:ring-pollocks-blue/20 focus:outline-none transition-all resize-none"
+                          placeholder="How can we help you?"
+                        />
+                      </div>
+                      <button 
+                        type="submit" 
+                        disabled={isSubmitting}
+                        className="w-full py-3.5 bg-pollocks-blue text-white rounded-xl hover:bg-pollocks-blue-dark transition-colors disabled:opacity-50 font-medium flex items-center justify-center gap-2"
+                      >
+                        {isSubmitting ? 'Sending...' : 'Send Message'}
+                        <Send className="w-4 h-4" />
+                      </button>
+                    </div>
+                  </form>
+                )}
+              </div>
             </div>
           </section>
 

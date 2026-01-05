@@ -12,7 +12,7 @@ export default function LeadForm() {
     childName: "",
     parentName: "",
     email: "",
-    phone: "",
+    phone: "+91 ",
     dob: "",
     grade: "",
     branch: "",
@@ -36,7 +36,7 @@ export default function LeadForm() {
 
       if (response.ok) {
         setIsSubmitted(true);
-        setFormData({ childName: "", parentName: "", email: "", phone: "", dob: "", grade: "", branch: "", message: "" });
+        setFormData({ childName: "", parentName: "", email: "", phone: "+91 ", dob: "", grade: "", branch: "", message: "" });
       }
     } catch (error) {
       console.error("Error submitting form:", error);
@@ -64,15 +64,15 @@ export default function LeadForm() {
   }
 
   return (
-    <div className="w-full flex items-center justify-center px-4 sm:px-6 lg:px-12 py-8 lg:py-0">
-      <div className="w-full max-w-2xl mx-auto">
+    <div className="w-full flex items-center justify-center px-4 sm:px-6 lg:px-8 py-4 lg:py-0">
+      <div className="w-full max-w-xl mx-auto">
         {/* Header */}
-        <div className="text-center mb-8">
+        <div className="text-center mb-4">
           <motion.span
             initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-pollocks-blue uppercase tracking-[0.15em] text-xs font-medium block mb-2"
+            className="text-pollocks-blue uppercase tracking-[0.15em] text-xs font-medium block mb-1"
           >
             Get Started
           </motion.span>
@@ -81,7 +81,7 @@ export default function LeadForm() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-2xl md:text-3xl lg:text-4xl font-serif font-bold text-pollocks-black mb-2"
+            className="text-xl md:text-2xl font-serif font-bold text-pollocks-black mb-1"
           >
             Start Your Journey
           </motion.h2>
@@ -90,7 +90,7 @@ export default function LeadForm() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="text-gray-600 text-sm max-w-md mx-auto"
+            className="text-gray-600 text-xs"
           >
             Ready to enroll? Tell us about your child.
           </motion.p>
@@ -103,14 +103,14 @@ export default function LeadForm() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.3 }}
-          className="ios-glass rounded-3xl p-6 sm:p-8"
+          className="ios-glass rounded-2xl p-4 sm:p-5 relative z-10"
         >
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
             {/* Child's Name */}
             <div>
-              <label className="block text-xs font-medium text-gray-700 mb-1.5">Child's Name *</label>
+              <label className="block text-xs font-medium text-gray-700 mb-1">Child's Name *</label>
               <div className="relative">
-                <User className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                <User className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-gray-400" />
                 <input
                   type="text"
                   name="childName"
@@ -118,16 +118,16 @@ export default function LeadForm() {
                   onChange={handleChange}
                   required
                   placeholder="Enter child's name"
-                  className="w-full pl-11 pr-4 py-3 rounded-xl bg-white/70 backdrop-blur-sm border border-gray-200/50 focus:border-pollocks-blue focus:ring-2 focus:ring-pollocks-blue/20 outline-none transition-all text-sm"
+                  className="w-full pl-9 pr-3 py-2 rounded-lg bg-white border border-gray-200 focus:border-pollocks-blue focus:ring-2 focus:ring-pollocks-blue/20 outline-none transition-all text-sm"
                 />
               </div>
             </div>
 
             {/* Parent's Name */}
             <div>
-              <label className="block text-xs font-medium text-gray-700 mb-1.5">Parent's Name *</label>
+              <label className="block text-xs font-medium text-gray-700 mb-1">Parent's Name *</label>
               <div className="relative">
-                <User className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                <User className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-gray-400" />
                 <input
                   type="text"
                   name="parentName"
@@ -135,16 +135,16 @@ export default function LeadForm() {
                   onChange={handleChange}
                   required
                   placeholder="Enter parent's name"
-                  className="w-full pl-11 pr-4 py-3 rounded-xl bg-white/70 backdrop-blur-sm border border-gray-200/50 focus:border-pollocks-blue focus:ring-2 focus:ring-pollocks-blue/20 outline-none transition-all text-sm"
+                  className="w-full pl-9 pr-3 py-2 rounded-lg bg-white border border-gray-200 focus:border-pollocks-blue focus:ring-2 focus:ring-pollocks-blue/20 outline-none transition-all text-sm"
                 />
               </div>
             </div>
 
             {/* Email */}
             <div>
-              <label className="block text-xs font-medium text-gray-700 mb-1.5">Email Address *</label>
+              <label className="block text-xs font-medium text-gray-700 mb-1">Email *</label>
               <div className="relative">
-                <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-gray-400" />
                 <input
                   type="email"
                   name="email"
@@ -152,54 +152,54 @@ export default function LeadForm() {
                   onChange={handleChange}
                   required
                   placeholder="your@email.com"
-                  className="w-full pl-11 pr-4 py-3 rounded-xl bg-white/70 backdrop-blur-sm border border-gray-200/50 focus:border-pollocks-blue focus:ring-2 focus:ring-pollocks-blue/20 outline-none transition-all text-sm"
+                  className="w-full pl-9 pr-3 py-2 rounded-lg bg-white border border-gray-200 focus:border-pollocks-blue focus:ring-2 focus:ring-pollocks-blue/20 outline-none transition-all text-sm"
                 />
               </div>
             </div>
 
             {/* Phone */}
             <div>
-              <label className="block text-xs font-medium text-gray-700 mb-1.5">Phone Number *</label>
+              <label className="block text-xs font-medium text-gray-700 mb-1">Phone *</label>
               <div className="relative">
-                <Phone className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-gray-400" />
                 <input
                   type="tel"
                   name="phone"
                   value={formData.phone}
                   onChange={handleChange}
                   required
-                  placeholder="+91 XXXXX XXXXX"
-                  className="w-full pl-11 pr-4 py-3 rounded-xl bg-white/70 backdrop-blur-sm border border-gray-200/50 focus:border-pollocks-blue focus:ring-2 focus:ring-pollocks-blue/20 outline-none transition-all text-sm"
+                  placeholder="XXXXX XXXXX"
+                  className="w-full pl-9 pr-3 py-2 rounded-lg bg-white border border-gray-200 focus:border-pollocks-blue focus:ring-2 focus:ring-pollocks-blue/20 outline-none transition-all text-sm"
                 />
               </div>
             </div>
 
             {/* Date of Birth */}
             <div>
-              <label className="block text-xs font-medium text-gray-700 mb-1.5">Child's Date of Birth</label>
+              <label className="block text-xs font-medium text-gray-700 mb-1">Date of Birth</label>
               <div className="relative">
-                <Calendar className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-gray-400" />
                 <input
                   type="date"
                   name="dob"
                   value={formData.dob}
                   onChange={handleChange}
-                  className="w-full pl-11 pr-4 py-3 rounded-xl bg-white/70 backdrop-blur-sm border border-gray-200/50 focus:border-pollocks-blue focus:ring-2 focus:ring-pollocks-blue/20 outline-none transition-all text-sm"
+                  className="w-full pl-9 pr-3 py-2 rounded-lg bg-white border border-gray-200 focus:border-pollocks-blue focus:ring-2 focus:ring-pollocks-blue/20 outline-none transition-all text-sm"
                 />
               </div>
             </div>
 
             {/* Grade */}
             <div>
-              <label className="block text-xs font-medium text-gray-700 mb-1.5">Admission Grade *</label>
+              <label className="block text-xs font-medium text-gray-700 mb-1">Grade *</label>
               <div className="relative">
-                <BookOpen className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                <BookOpen className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-gray-400" />
                 <select
                   name="grade"
                   value={formData.grade}
                   onChange={handleChange}
                   required
-                  className="w-full pl-11 pr-4 py-3 rounded-xl bg-white/70 backdrop-blur-sm border border-gray-200/50 focus:border-pollocks-blue focus:ring-2 focus:ring-pollocks-blue/20 outline-none transition-all text-sm appearance-none cursor-pointer"
+                  className="w-full pl-9 pr-3 py-2 rounded-lg bg-white border border-gray-200 focus:border-pollocks-blue focus:ring-2 focus:ring-pollocks-blue/20 outline-none transition-all text-sm appearance-none cursor-pointer"
                 >
                   <option value="">Select Grade</option>
                   <option value="pre-nursery">Pre-Nursery</option>
@@ -219,46 +219,46 @@ export default function LeadForm() {
                 </select>
               </div>
             </div>
-          </div>
 
-          {/* Branch - Full Width */}
-          <div className="mt-4">
-            <label className="block text-xs font-medium text-gray-700 mb-1.5">Preferred Branch</label>
-            <div className="relative">
-              <MapPin className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-              <select
-                name="branch"
-                value={formData.branch}
-                onChange={handleChange}
-                className="w-full pl-11 pr-4 py-3 rounded-xl bg-white/70 backdrop-blur-sm border border-gray-200/50 focus:border-pollocks-blue focus:ring-2 focus:ring-pollocks-blue/20 outline-none transition-all text-sm appearance-none cursor-pointer"
-              >
-                <option value="">Select Branch</option>
-                <option value="madhurawada">Madhurawada</option>
-                <option value="madhura-nagar">Madhura Nagar</option>
-                <option value="mvp">MVP</option>
-                <option value="railway-new-colony">Railway New Colony</option>
-              </select>
+            {/* Branch */}
+            <div>
+              <label className="block text-xs font-medium text-gray-700 mb-1">Branch</label>
+              <div className="relative">
+                <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-gray-400" />
+                <select
+                  name="branch"
+                  value={formData.branch}
+                  onChange={handleChange}
+                  className="w-full pl-9 pr-3 py-2 rounded-lg bg-white border border-gray-200 focus:border-pollocks-blue focus:ring-2 focus:ring-pollocks-blue/20 outline-none transition-all text-sm appearance-none cursor-pointer"
+                >
+                  <option value="">Select Branch</option>
+                  <option value="madhurawada">Madhurawada</option>
+                  <option value="madhura-nagar">Madhura Nagar</option>
+                  <option value="mvp">MVP</option>
+                  <option value="railway-new-colony">Railway New Colony</option>
+                </select>
+              </div>
             </div>
-          </div>
 
-          {/* Message */}
-          <div className="mt-4">
-            <label className="block text-xs font-medium text-gray-700 mb-1.5">Additional Message</label>
-            <textarea
-              name="message"
-              value={formData.message}
-              onChange={handleChange}
-              rows={3}
-              placeholder="Any specific questions or requirements..."
-              className="w-full px-4 py-3 rounded-xl bg-white/70 backdrop-blur-sm border border-gray-200/50 focus:border-pollocks-blue focus:ring-2 focus:ring-pollocks-blue/20 outline-none transition-all text-sm resize-none"
-            />
+            {/* Message */}
+            <div>
+              <label className="block text-xs font-medium text-gray-700 mb-1">Message</label>
+              <textarea
+                name="message"
+                value={formData.message}
+                onChange={handleChange}
+                rows={1}
+                placeholder="Any questions..."
+                className="w-full px-3 py-2 rounded-lg bg-white border border-gray-200 focus:border-pollocks-blue focus:ring-2 focus:ring-pollocks-blue/20 outline-none transition-all text-sm resize-none"
+              />
+            </div>
           </div>
 
           {/* Submit Button */}
           <Button
             type="submit"
             disabled={isSubmitting}
-            className="w-full mt-6 rounded-2xl py-4 text-sm font-medium"
+            className="w-full mt-4 rounded-xl py-3 text-sm font-medium"
           >
             {isSubmitting ? "Submitting..." : "Request Consultation"}
             <Send className="ml-2 w-4 h-4" />

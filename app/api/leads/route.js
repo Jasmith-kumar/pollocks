@@ -2,7 +2,7 @@ import clientPromise from "@/lib/mongodb";
 import { NextResponse } from "next/server";
 
 const DB_NAME = "production";
-const COLLECTION_NAME = "admission_enquiries";
+const COLLECTION_NAME = "admission_forms";
 
 export async function POST(request) {
   try {

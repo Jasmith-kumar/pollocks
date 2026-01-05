@@ -1,6 +1,7 @@
 import { Button } from "./ui/Button";
-import { Instagram, Facebook, Youtube, GraduationCap, Phone, Mail } from "lucide-react";
+import { Instagram, Facebook, Youtube, Phone, Mail } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Footer() {
   return (
@@ -21,11 +22,16 @@ export default function Footer() {
         <div className="border-t border-white/10 pt-8">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
             <div className="sm:col-span-2">
-              <div className="flex items-center gap-2 mb-4">
-                <div className="w-10 h-10 bg-pollocks-blue rounded-lg flex items-center justify-center">
-                  <GraduationCap className="w-5 h-5 text-white" />
-                </div>
-                <h3 className="text-lg font-bold font-serif">Pollocks School</h3>
+              <div className="mb-4">
+                <Link href="/" className="inline-block bg-white rounded-xl p-2 hover:shadow-lg transition-shadow">
+                  <Image
+                    src="https://storage.googleapis.com/new_client_files/pollocks/Pollocks%20logo.png"
+                    alt="Pollocks School Logo"
+                    width={180}
+                    height={56}
+                    className="h-10 sm:h-11 md:h-12 w-auto object-contain"
+                  />
+                </Link>
               </div>
               <p className="text-gray-400 max-w-xs mb-4 text-sm">
                 Established in 1966, providing quality CBSE education from Pre-Nursery to 10th Standard in Visakhapatnam.
@@ -82,7 +88,7 @@ export default function Footer() {
             <div className="flex items-center gap-4">
               <a href="#" className="hover:text-pollocks-blue transition-colors">Privacy Policy</a>
               <a href="#" className="hover:text-pollocks-blue transition-colors">Terms of Use</a>
-              <span className="text-gray-600">Built by <span className="text-pollocks-blue">Xscade</span></span>
+              <a href="https://www.xscade.com/" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-pollocks-blue transition-colors">Built by <span className="text-pollocks-blue">Xscade</span></a>
             </div>
           </div>
         </div>

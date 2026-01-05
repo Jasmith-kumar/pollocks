@@ -5,7 +5,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Button } from "./ui/Button";
-import { Menu, X, GraduationCap } from "lucide-react";
+import { Menu, X } from "lucide-react";
+import Image from "next/image";
 
 const navItems = [
   { name: "Home", href: "/" },
@@ -77,14 +78,16 @@ export default function Navigation() {
       >
         <Link 
           href="/" 
-          className="flex items-center gap-2.5 group bg-white/80 backdrop-blur-xl rounded-full pl-1.5 pr-4 py-1.5 shadow-lg border border-white/50 hover:shadow-xl transition-all hover:bg-white/90"
+          className="flex items-center group bg-white/80 backdrop-blur-xl rounded-full px-2 py-1.5 shadow-lg border border-white/50 hover:shadow-xl transition-all hover:bg-white/90"
         >
-          <div className="w-9 h-9 sm:w-10 sm:h-10 bg-gradient-to-br from-pollocks-blue to-pollocks-blue-dark rounded-full flex items-center justify-center shadow-inner">
-            <GraduationCap className="w-5 h-5 sm:w-5 sm:h-5 text-white" />
-          </div>
-          <span className="text-base sm:text-lg font-serif font-bold text-pollocks-black">
-            Pollocks
-          </span>
+          <Image
+            src="https://storage.googleapis.com/new_client_files/pollocks/Pollocks%20logo.png"
+            alt="Pollocks School Logo"
+            width={160}
+            height={50}
+            className="h-8 sm:h-9 md:h-10 w-auto object-contain"
+            priority
+          />
         </Link>
       </motion.div>
 
