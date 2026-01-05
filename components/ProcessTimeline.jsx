@@ -15,7 +15,7 @@ export default function AdmissionProcess() {
   return (
     <>
       {/* Desktop Horizontal Version */}
-      <section className="hidden lg:flex w-screen min-w-screen h-full bg-white items-center px-8 lg:px-10 shrink-0 overflow-hidden">
+      <section className="hidden lg:flex w-screen min-w-screen h-screen bg-white items-center px-8 lg:px-10 shrink-0">
         <div className="w-full max-w-full">
           <div className="mb-8">
             <span className="text-pollocks-blue uppercase tracking-[0.15em] text-xs font-medium block mb-2">

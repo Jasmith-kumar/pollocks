@@ -35,7 +35,7 @@ export default function CampusGallery() {
   return (
     <>
       {/* Desktop Version - Horizontal */}
-      <section id="gallery-section" className="hidden lg:flex h-full w-fit min-w-screen items-center bg-pollocks-black text-white relative overflow-hidden">
+      <section id="gallery-section" className="hidden lg:flex h-screen w-fit min-w-screen items-center bg-pollocks-black text-white relative">
         {/* Intro Panel */}
         <div id="gallery-panel" className="w-[320px] shrink-0 h-full flex flex-col justify-center px-10 border-r border-white/10 bg-pollocks-black z-20 relative overflow-hidden">
           <span className="text-pollocks-blue uppercase tracking-[0.15em] text-xs font-medium block mb-3">

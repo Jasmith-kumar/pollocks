@@ -64,7 +64,7 @@ export default function LeadForm() {
   }
 
   return (
-    <div className="w-full flex items-center justify-center px-4 sm:px-6 lg:px-8 py-4 lg:py-0">
+    <div className="w-full h-full lg:h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 py-4 lg:py-0">
       <div className="w-full max-w-xl mx-auto">
         {/* Header */}
         <div className="text-center mb-4">

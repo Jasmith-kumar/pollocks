@@ -31,7 +31,7 @@ const programs = [
 
 export default function AcademicsGrid() {
   return (
-    <div className="w-full h-full flex items-center px-5 sm:px-8 lg:px-12">
+    <div className="w-full h-full lg:h-screen flex items-center px-5 sm:px-8 lg:px-12">
       <div className="w-full max-w-6xl mx-auto">
         {/* Header with better spacing */}
         <div className="text-center mb-10 sm:mb-12 lg:mb-14">

@@ -177,49 +177,49 @@ export default function Home() {
   // Mobile/Tablet: Vertical scroll layout with improved spacing
   if (isMobile) {
     return (
-      <main className="bg-white selection:bg-pollocks-blue selection:text-white overflow-x-hidden max-w-full">
+      <main className="bg-white selection:bg-pollocks-blue selection:text-white overflow-x-hidden">
         {/* Hero - Full Screen */}
-        <section className="h-screen w-full overflow-hidden">
+        <section className="h-screen w-full">
           <Hero />
         </section>
 
-        {/* Director Section - More padding */}
-        <section className="py-16 sm:py-20 md:py-24 bg-pollocks-sky w-full overflow-hidden">
+        {/* Director Section */}
+        <section className="py-16 sm:py-20 bg-pollocks-sky w-full">
           <DirectorShowcase />
         </section>
 
-        {/* Academics Grid - More padding */}
-        <section className="py-16 sm:py-20 md:py-24 bg-white w-full overflow-hidden">
+        {/* Academics Grid */}
+        <section className="py-16 sm:py-20 bg-white w-full">
           <AcademicsGrid />
         </section>
 
-        {/* Campus Gallery - More padding */}
-        <section className="py-16 sm:py-20 md:py-24 bg-pollocks-black w-full overflow-hidden">
+        {/* Campus Gallery */}
+        <section className="py-16 sm:py-20 bg-pollocks-black w-full">
           <CampusGallery />
         </section>
 
         {/* Activities - Component handles its own padding */}
-        <section className="w-full overflow-hidden">
+        <section className="w-full">
           <ActivitiesShowcase />
         </section>
 
-        {/* Admission Process - More padding */}
-        <section className="py-16 sm:py-20 md:py-24 bg-white w-full overflow-hidden">
+        {/* Admission Process */}
+        <section className="py-16 sm:py-20 bg-white w-full">
           <AdmissionProcess />
         </section>
 
-        {/* Video Section - More padding */}
-        <section className="py-16 sm:py-20 md:py-24 bg-pollocks-navy w-full overflow-hidden">
+        {/* Video Section */}
+        <section className="py-16 sm:py-20 bg-pollocks-navy w-full">
           <VideoShowcase />
         </section>
 
-        {/* Admission Form - More padding */}
-        <section className="py-16 sm:py-20 md:py-24 bg-gradient-to-b from-white to-pollocks-sky/30 w-full overflow-hidden">
+        {/* Admission Form */}
+        <section className="py-16 sm:py-20 bg-gradient-to-b from-white to-pollocks-sky/30 w-full">
           <AdmissionForm />
         </section>
 
         {/* Footer */}
-        <section id="footer-section" className="bg-pollocks-black w-full overflow-hidden pt-16 pb-8">
+        <section id="footer-section" className="bg-pollocks-black w-full">
           <Footer />
         </section>
       </main>

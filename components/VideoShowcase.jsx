@@ -27,7 +27,7 @@ export default function VideoShowcase() {
   };
 
   return (
-    <div className="w-full h-full flex flex-col items-center justify-center px-5 sm:px-8 lg:px-12">
+    <div className="w-full h-full lg:h-screen flex flex-col items-center justify-center px-5 sm:px-8 lg:px-12">
       <div className="w-full max-w-4xl mx-auto">
         {/* Header - Centered with better spacing */}
         <div className="text-center mb-8 sm:mb-10 lg:mb-10">

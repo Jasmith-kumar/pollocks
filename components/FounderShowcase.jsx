@@ -8,9 +8,9 @@ export default function DirectorShowcase() {
   const isInView = useInView(ref, { once: true, margin: "-50px" });
 
   return (
-    <section className="w-full bg-pollocks-sky text-pollocks-black">
+    <section className="w-full h-full bg-pollocks-sky text-pollocks-black">
       {/* Mobile: Stack layout with proper spacing */}
-      <div className="lg:hidden px-5 sm:px-8">
+      <div className="lg:hidden px-5 sm:px-8 py-4">
         <div className="max-w-lg mx-auto">
           {/* Header */}
           <div className="text-center mb-8">
@@ -60,8 +60,8 @@ export default function DirectorShowcase() {
         </div>
       </div>
 
-      {/* Desktop: Side by side layout */}
-      <div className="hidden lg:flex h-full w-full items-center px-10 xl:px-12">
+      {/* Desktop: Side by side layout - full height */}
+      <div className="hidden lg:flex h-screen w-full items-center px-10 xl:px-12">
         <div className="w-full max-w-6xl mx-auto grid grid-cols-2 gap-12 items-center">
           {/* Image Side */}
           <div className="relative">

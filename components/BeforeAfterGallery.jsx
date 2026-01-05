@@ -35,7 +35,7 @@ export default function ActivitiesShowcase() {
   return (
     <>
       {/* Desktop Version */}
-      <section className="hidden lg:flex w-screen min-w-screen h-full bg-gradient-to-br from-pollocks-sky via-white to-pollocks-sky/50 items-center px-8 lg:px-10 shrink-0 overflow-hidden">
+      <section className="hidden lg:flex w-screen min-w-screen h-screen bg-gradient-to-br from-pollocks-sky via-white to-pollocks-sky/50 items-center px-8 lg:px-10 shrink-0">
         <div className="w-full max-w-6xl mx-auto grid grid-cols-2 gap-10 items-center">
           {/* Content */}
           <div>

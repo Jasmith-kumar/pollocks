@@ -5,8 +5,8 @@ import Image from "next/image";
 
 export default function Footer() {
   return (
-    <footer className="bg-pollocks-black text-white w-full h-full px-5 sm:px-8 lg:px-12">
-      <div className="max-w-5xl mx-auto h-full flex flex-col justify-center py-10 sm:py-12">
+    <footer className="bg-pollocks-black text-white w-full h-full lg:h-screen px-5 sm:px-8 lg:px-12">
+      <div className="max-w-5xl mx-auto h-full flex flex-col justify-center py-12 sm:py-16 lg:py-0">
         {/* Final CTA with better spacing */}
         <div className="mb-12 sm:mb-14 text-center">
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-5 tracking-tight font-serif leading-tight">
