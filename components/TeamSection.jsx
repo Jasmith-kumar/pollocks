@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Linkedin, Mail } from "lucide-react";
 
 const educators = [
   {
@@ -73,15 +72,7 @@ export default function TeamSection() {
               
               {/* Hover Content */}
               <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-5 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-                <p className="text-white/90 text-sm mb-3">{educator.bio}</p>
-                <div className="flex gap-3">
-                  <a href="#" className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center text-white hover:bg-pollocks-blue transition-colors">
-                    <Linkedin className="w-4 h-4" />
-                  </a>
-                  <a href="#" className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center text-white hover:bg-pollocks-blue transition-colors">
-                    <Mail className="w-4 h-4" />
-                  </a>
-                </div>
+                <p className="text-white/90 text-sm">{educator.bio}</p>
               </div>
             </div>
             <h3 className="text-lg sm:text-xl font-serif font-bold text-pollocks-black mb-1">{educator.name}</h3>

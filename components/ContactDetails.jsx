@@ -64,15 +64,30 @@ export default function ContactDetails() {
             <div className="pt-8 border-t border-gray-200">
                 <h3 className="text-sm uppercase tracking-widest text-gray-500 mb-6">Follow Us</h3>
                 <div className="flex space-x-4">
-                    {[Instagram, Facebook, Youtube].map((Icon, i) => (
-                        <a 
-                            key={i}
-                            href="#" 
-                            className="w-10 h-10 rounded-full border border-pollocks-black/10 flex items-center justify-center hover:bg-pollocks-blue hover:border-pollocks-blue hover:text-white transition-all duration-300"
-                        >
-                            <Icon size={18} />
-                        </a>
-                    ))}
+                    <a 
+                        href="https://www.instagram.com/pollocksschool/?hl=en"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="w-10 h-10 rounded-full border border-pollocks-black/10 flex items-center justify-center hover:bg-pollocks-blue hover:border-pollocks-blue hover:text-white transition-all duration-300"
+                    >
+                        <Instagram size={18} />
+                    </a>
+                    <a 
+                        href="https://www.facebook.com/pollocksschool"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="w-10 h-10 rounded-full border border-pollocks-black/10 flex items-center justify-center hover:bg-pollocks-blue hover:border-pollocks-blue hover:text-white transition-all duration-300"
+                    >
+                        <Facebook size={18} />
+                    </a>
+                    <a 
+                        href="https://www.youtube.com/channel/UClblR3cACr1ryhxm3ZZFD8Q"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="w-10 h-10 rounded-full border border-pollocks-black/10 flex items-center justify-center hover:bg-pollocks-blue hover:border-pollocks-blue hover:text-white transition-all duration-300"
+                    >
+                        <Youtube size={18} />
+                    </a>
                 </div>
             </div>
         </div>

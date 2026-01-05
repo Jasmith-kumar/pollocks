@@ -55,13 +55,13 @@ export default function Footer() {
 
               {/* Social Links */}
               <div className="flex gap-3">
-                <a href="#" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-pollocks-blue transition-colors">
+                <a href="https://www.instagram.com/pollocksschool/?hl=en" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-pollocks-blue transition-colors">
                   <Instagram className="w-4 h-4" />
                 </a>
-                <a href="#" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-pollocks-blue transition-colors">
+                <a href="https://www.facebook.com/pollocksschool" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-pollocks-blue transition-colors">
                   <Facebook className="w-4 h-4" />
                 </a>
-                <a href="#" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-pollocks-blue transition-colors">
+                <a href="https://www.youtube.com/channel/UClblR3cACr1ryhxm3ZZFD8Q" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-pollocks-blue transition-colors">
                   <Youtube className="w-4 h-4" />
                 </a>
               </div>
@@ -95,8 +95,8 @@ export default function Footer() {
           <div className="flex flex-col sm:flex-row justify-between items-center pt-8 border-t border-white/10 text-xs text-gray-500 gap-4">
             <p>© {new Date().getFullYear()} Pollocks School. All rights reserved.</p>
             <div className="flex items-center gap-4 flex-wrap justify-center">
-              <a href="#" className="hover:text-pollocks-blue transition-colors">Privacy Policy</a>
-              <a href="#" className="hover:text-pollocks-blue transition-colors">Terms of Use</a>
+              <a href="/privacy-policy" className="hover:text-pollocks-blue transition-colors">Privacy Policy</a>
+              <a href="/terms" className="hover:text-pollocks-blue transition-colors">Terms of Use</a>
               <a href="https://www.xscade.com/" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-pollocks-blue transition-colors">
                 Built by <span className="text-pollocks-blue">Xscade</span>
               </a>
