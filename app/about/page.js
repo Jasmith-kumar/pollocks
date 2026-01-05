@@ -169,7 +169,7 @@ export default function AboutPage() {
           <Testimonials />
         </section>
 
-        <section className="bg-pollocks-black pt-16 pb-8">
+        <section className="bg-pollocks-black">
           <Footer />
         </section>
       </main>
@@ -205,41 +205,31 @@ export default function AboutPage() {
             </div>
           </section>
 
-          <section className="w-screen h-screen shrink-0 flex items-center justify-center bg-pollocks-sky overflow-hidden pt-20">
-            <div className="w-full h-full flex items-center overflow-y-auto lg:overflow-hidden">
-              <DirectorShowcase />
-            </div>
+          <section className="w-screen h-screen shrink-0 flex items-center justify-center bg-pollocks-sky overflow-hidden">
+            <DirectorShowcase />
           </section>
 
-          <section className="h-screen shrink-0 pt-20">
+          <section className="h-screen shrink-0 overflow-hidden">
             <AboutTimeline />
           </section>
 
-          <section className="w-screen h-screen shrink-0 bg-pollocks-navy flex items-center justify-center pt-20">
-            <div className="w-full">
-              <StatsSection />
-            </div>
+          <section className="w-screen h-screen shrink-0 bg-pollocks-navy flex items-center justify-center overflow-hidden">
+            <StatsSection />
           </section>
 
-          <section className="w-screen h-screen shrink-0 bg-white flex items-center justify-center overflow-hidden pt-20">
-            <div className="w-full h-full flex items-center overflow-y-auto lg:overflow-hidden">
-              <TeamSection />
-            </div>
+          <section className="w-screen h-screen shrink-0 bg-white flex items-center justify-center overflow-hidden">
+            <TeamSection />
           </section>
 
-          <section className="w-screen h-screen shrink-0 bg-pollocks-navy flex items-center justify-center px-8 pt-20">
-            <div className="w-full">
-              <VideoShowcase />
-            </div>
+          <section className="w-screen h-screen shrink-0 bg-pollocks-navy flex items-center justify-center overflow-hidden">
+            <VideoShowcase />
           </section>
 
-          <section className="w-screen h-screen shrink-0 bg-white flex items-center justify-center pt-20">
-            <div className="w-full">
-              <Testimonials />
-            </div>
+          <section className="w-screen h-screen shrink-0 bg-white flex items-center justify-center overflow-hidden">
+            <Testimonials />
           </section>
 
-          <section id="footer-section" className="w-screen h-screen shrink-0 bg-pollocks-black flex items-center justify-center">
+          <section id="footer-section" className="w-screen min-h-screen shrink-0 bg-pollocks-black flex items-center overflow-hidden">
             <Footer />
           </section>
 
