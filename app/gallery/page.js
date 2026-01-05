@@ -1,9 +1,13 @@
 "use client";
 
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { X, ChevronLeft, ChevronRight } from "lucide-react";
+import { useState, useEffect, useRef } from "react";
+import { motion } from "framer-motion";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { X, ChevronLeft, ChevronRight, Camera } from "lucide-react";
 import Footer from "@/components/Footer";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const galleryImages = [
   {
@@ -83,6 +87,10 @@ const galleryImages = [
 const categories = ["All", "Academic", "Labs", "Technology", "Learning", "Sports", "Creative", "Campus Life", "Events"];
 
 export default function GalleryPage() {
+  const containerRef = useRef(null);
+  const wrapperRef = useRef(null);
+  const [mounted, setMounted] = useState(false);
+  const [isMobile, setIsMobile] = useState(true); // Default to mobile to avoid hydration mismatch
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [selectedImage, setSelectedImage] = useState(null);
 
@@ -91,6 +99,41 @@ export default function GalleryPage() {
     : galleryImages.filter(img => img.category === selectedCategory);
 
   const currentIndex = selectedImage ? filteredImages.findIndex(img => img.id === selectedImage.id) : -1;
+
+  // Handle mounting and mobile detection
+  useEffect(() => {
+    setMounted(true);
+    const checkMobile = () => setIsMobile(window.innerWidth < 1024);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  // GSAP horizontal scroll - only on desktop
+  useEffect(() => {
+    if (!mounted || isMobile) return;
+
+    const ctx = gsap.context(() => {
+      const container = containerRef.current;
+      const wrapper = wrapperRef.current;
+      
+      if (!container || !wrapper) return;
+
+      gsap.to(wrapper, {
+        x: () => -(wrapper.scrollWidth - window.innerWidth),
+        ease: "none",
+        scrollTrigger: {
+          trigger: container,
+          pin: true,
+          scrub: 1,
+          end: () => `+=${wrapper.scrollWidth}`,
+          invalidateOnRefresh: true,
+        }
+      });
+    }, containerRef);
+
+    return () => ctx.revert();
+  }, [mounted, isMobile]);
 
   const nextImage = () => {
     if (currentIndex < filteredImages.length - 1) {
@@ -104,55 +147,53 @@ export default function GalleryPage() {
     }
   };
 
-  return (
-    <main className="bg-white min-h-screen pt-16 md:pt-20">
-      {/* Hero Section */}
-      <section className="bg-pollocks-navy text-white py-16 md:py-24 lg:py-32 px-4 sm:px-6 text-center relative overflow-hidden">
-        <div className="absolute inset-0 z-0">
-          <img 
-            src="https://images.unsplash.com/photo-1580582932707-520aed937b7b?q=90&w=2000&auto=format&fit=crop" 
-            alt="Gallery Hero" 
-            className="w-full h-full object-cover opacity-20"
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-pollocks-navy/80 to-pollocks-navy" />
-        </div>
-        
-        <div className="relative z-10 max-w-4xl mx-auto">
-          <motion.span 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-pollocks-blue uppercase tracking-[0.2em] text-xs sm:text-sm font-medium block mb-3 md:mb-4"
-          >
-            Our Campus
-          </motion.span>
-          <motion.h1 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-serif font-bold mb-4 md:mb-6"
-          >
-            Photo Gallery
-          </motion.h1>
-          <motion.p 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="text-base sm:text-lg md:text-xl text-gray-300 max-w-2xl mx-auto"
-          >
-            Explore our world-class facilities and vibrant campus life through these moments.
-          </motion.p>
-        </div>
-      </section>
+  const closeLightbox = () => setSelectedImage(null);
 
-      {/* Category Filter */}
-      <section className="py-6 md:py-8 px-4 sm:px-6 border-b border-gray-100 sticky top-16 md:top-20 bg-white/95 backdrop-blur-md z-30">
-        <div className="max-w-7xl mx-auto">
-          <div className="flex gap-2 md:gap-3 overflow-x-auto no-scrollbar pb-2">
+  // Show loading state until mounted
+  if (!mounted) {
+    return (
+      <main className="bg-white min-h-screen pt-16 md:pt-20 flex items-center justify-center">
+        <div className="animate-pulse text-gray-400">Loading...</div>
+      </main>
+    );
+  }
+
+  // Mobile/Tablet Layout
+  if (isMobile) {
+    return (
+      <main className="bg-white min-h-screen pt-16 md:pt-20">
+        {/* Hero */}
+        <section className="bg-pollocks-navy text-white py-20 md:py-28 px-4 sm:px-6 text-center relative overflow-hidden">
+          <div className="absolute inset-0 z-0">
+            <img 
+              src="https://images.unsplash.com/photo-1580582932707-520aed937b7b?q=90&w=2000&auto=format&fit=crop" 
+              alt="Gallery Hero" 
+              className="w-full h-full object-cover opacity-30"
+            />
+            <div className="absolute inset-0 bg-gradient-to-b from-pollocks-navy/60 to-pollocks-navy" />
+          </div>
+          
+          <div className="relative z-10 max-w-4xl mx-auto">
+            <span className="text-pollocks-blue uppercase tracking-[0.2em] text-xs sm:text-sm font-medium block mb-3">
+              Our Campus
+            </span>
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold mb-4">
+              Photo Gallery
+            </h1>
+            <p className="text-base sm:text-lg text-gray-300 max-w-2xl mx-auto">
+              Explore our world-class facilities and vibrant campus life.
+            </p>
+          </div>
+        </section>
+
+        {/* Category Filter - Sticky */}
+        <section className="py-4 px-4 sm:px-6 border-b border-gray-100 sticky top-16 md:top-20 bg-white/95 backdrop-blur-md z-30">
+          <div className="flex gap-2 overflow-x-auto no-scrollbar">
             {categories.map((category) => (
               <button
                 key={category}
                 onClick={() => setSelectedCategory(category)}
-                className={`px-4 md:px-6 py-2 md:py-2.5 rounded-full text-sm font-medium whitespace-nowrap transition-all ${
+                className={`px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all ${
                   selectedCategory === category 
                     ? "bg-pollocks-blue text-white" 
                     : "bg-gray-100 text-gray-600 hover:bg-gray-200"
@@ -162,117 +203,280 @@ export default function GalleryPage() {
               </button>
             ))}
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Photo Grid */}
-      <section className="py-8 md:py-12 lg:py-16 px-4 sm:px-6">
-        <div className="max-w-7xl mx-auto">
-          <motion.div 
-            layout
-            className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4 lg:gap-6"
-          >
-            <AnimatePresence mode="popLayout">
+        {/* Photo Grid - Mobile */}
+        <section className="py-8 px-4 sm:px-6">
+          <div className="max-w-4xl mx-auto">
+            <div className="grid grid-cols-2 gap-3">
               {filteredImages.map((image, index) => (
-                <motion.div
+                <div
                   key={image.id}
-                  layout
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.9 }}
-                  transition={{ duration: 0.3, delay: index * 0.05 }}
                   onClick={() => setSelectedImage(image)}
-                  className={`relative overflow-hidden rounded-xl md:rounded-2xl cursor-pointer group ${
-                    index % 5 === 0 ? "sm:col-span-2 sm:row-span-2" : ""
+                  className={`relative overflow-hidden rounded-xl cursor-pointer group ${
+                    index % 5 === 0 ? "col-span-2" : ""
                   }`}
                 >
-                  <div className={`aspect-square ${index % 5 === 0 ? "sm:aspect-square" : ""}`}>
+                  <div className={`${index % 5 === 0 ? "aspect-video" : "aspect-square"}`}>
                     <img 
                       src={image.image} 
                       alt={image.title}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
                   </div>
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  <div className="absolute bottom-0 left-0 right-0 p-3 md:p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-                    <p className="text-pollocks-blue text-[10px] md:text-xs uppercase tracking-wider mb-1">{image.category}</p>
-                    <h3 className="text-white text-sm md:text-base font-serif font-bold">{image.title}</h3>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
+                  <div className="absolute bottom-0 left-0 right-0 p-3">
+                    <p className="text-pollocks-blue text-[10px] uppercase tracking-wider mb-0.5">{image.category}</p>
+                    <h3 className="text-white text-sm font-serif font-bold">{image.title}</h3>
                   </div>
-                </motion.div>
+                </div>
               ))}
-            </AnimatePresence>
-          </motion.div>
-        </div>
-      </section>
+            </div>
+          </div>
+        </section>
 
-      {/* Lightbox */}
-      <AnimatePresence>
+        <Footer />
+
+        {/* Lightbox */}
         {selectedImage && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={() => setSelectedImage(null)}
-            className="fixed inset-0 bg-black/95 z-50 flex items-center justify-center p-4"
+          <div
+            className="fixed inset-0 bg-black/95 z-[100] flex items-center justify-center p-4"
+            onClick={closeLightbox}
           >
-            {/* Close Button */}
             <button 
-              onClick={() => setSelectedImage(null)}
-              className="absolute top-4 right-4 md:top-8 md:right-8 w-10 h-10 md:w-12 md:h-12 bg-white/10 rounded-full flex items-center justify-center text-white hover:bg-white/20 transition-colors z-10"
+              onClick={closeLightbox}
+              className="absolute top-4 right-4 w-10 h-10 bg-white/10 rounded-full flex items-center justify-center text-white hover:bg-white/20 transition-colors z-10"
             >
-              <X className="w-5 h-5 md:w-6 md:h-6" />
+              <X className="w-5 h-5" />
             </button>
 
-            {/* Prev Button */}
             {currentIndex > 0 && (
               <button 
                 onClick={(e) => { e.stopPropagation(); prevImage(); }}
-                className="absolute left-2 md:left-8 top-1/2 -translate-y-1/2 w-10 h-10 md:w-12 md:h-12 bg-white/10 rounded-full flex items-center justify-center text-white hover:bg-white/20 transition-colors z-10"
+                className="absolute left-2 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/10 rounded-full flex items-center justify-center text-white hover:bg-white/20 transition-colors z-10"
               >
-                <ChevronLeft className="w-5 h-5 md:w-6 md:h-6" />
+                <ChevronLeft className="w-5 h-5" />
               </button>
             )}
 
-            {/* Next Button */}
             {currentIndex < filteredImages.length - 1 && (
               <button 
                 onClick={(e) => { e.stopPropagation(); nextImage(); }}
-                className="absolute right-2 md:right-8 top-1/2 -translate-y-1/2 w-10 h-10 md:w-12 md:h-12 bg-white/10 rounded-full flex items-center justify-center text-white hover:bg-white/20 transition-colors z-10"
+                className="absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/10 rounded-full flex items-center justify-center text-white hover:bg-white/20 transition-colors z-10"
               >
-                <ChevronRight className="w-5 h-5 md:w-6 md:h-6" />
+                <ChevronRight className="w-5 h-5" />
               </button>
             )}
 
-            {/* Image */}
-            <motion.div
-              key={selectedImage.id}
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
+            <div
               onClick={(e) => e.stopPropagation()}
-              className="relative max-w-5xl w-full max-h-[80vh]"
+              className="relative max-w-4xl w-full max-h-[80vh]"
             >
               <img 
                 src={selectedImage.image} 
                 alt={selectedImage.title}
                 className="w-full h-full object-contain rounded-lg"
               />
-              <div className="absolute bottom-0 left-0 right-0 p-4 md:p-6 bg-gradient-to-t from-black/80 to-transparent rounded-b-lg">
+              <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/80 to-transparent rounded-b-lg">
                 <p className="text-pollocks-blue text-xs uppercase tracking-wider mb-1">{selectedImage.category}</p>
-                <h3 className="text-white text-lg md:text-xl font-serif font-bold">{selectedImage.title}</h3>
+                <h3 className="text-white text-lg font-serif font-bold">{selectedImage.title}</h3>
               </div>
-            </motion.div>
+            </div>
 
-            {/* Counter */}
             <div className="absolute bottom-4 left-1/2 -translate-x-1/2 text-white/60 text-sm">
               {currentIndex + 1} / {filteredImages.length}
             </div>
-          </motion.div>
+          </div>
         )}
-      </AnimatePresence>
+      </main>
+    );
+  }
 
-      {/* Footer */}
-      <Footer />
+  // Desktop Layout - Horizontal Scroll
+  return (
+    <main className="overscroll-none bg-white selection:bg-pollocks-blue selection:text-white overflow-hidden">
+      <div ref={containerRef} className="w-full h-screen overflow-hidden">
+        <div ref={wrapperRef} className="flex h-screen w-fit">
+          
+          {/* Hero Section */}
+          <section className="w-screen h-screen shrink-0 relative bg-pollocks-navy flex items-center justify-center overflow-hidden">
+            <div className="absolute inset-0 z-0">
+              <img 
+                src="https://images.unsplash.com/photo-1580582932707-520aed937b7b?q=90&w=2000&auto=format&fit=crop" 
+                alt="Gallery Hero" 
+                className="w-full h-full object-cover opacity-30"
+              />
+              <div className="absolute inset-0 bg-gradient-to-b from-pollocks-navy/60 to-pollocks-navy" />
+            </div>
+            
+            <div className="relative z-10 text-center px-6 max-w-4xl mx-auto">
+              <motion.div 
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className="w-16 h-16 bg-pollocks-blue/20 rounded-2xl flex items-center justify-center mx-auto mb-6 backdrop-blur-sm border border-pollocks-blue/30"
+              >
+                <Camera className="w-8 h-8 text-pollocks-blue" />
+              </motion.div>
+              <motion.span 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="text-pollocks-blue uppercase tracking-[0.2em] text-sm font-medium block mb-4"
+              >
+                Our Campus
+              </motion.span>
+              <motion.h1 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1 }}
+                className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-white mb-4"
+              >
+                Photo Gallery
+              </motion.h1>
+              <motion.p 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2 }}
+                className="text-base md:text-lg text-gray-300 max-w-2xl mx-auto"
+              >
+                Explore our world-class facilities and vibrant campus life through these moments.
+              </motion.p>
+            </div>
+
+            {/* Scroll Indicator */}
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.5 }}
+              className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center text-white/60"
+            >
+              <span className="text-xs uppercase tracking-widest mb-2">Scroll to explore</span>
+              <motion.div 
+                animate={{ x: [0, 10, 0] }}
+                transition={{ repeat: Infinity, duration: 1.5 }}
+              >
+                <ChevronRight className="w-5 h-5" />
+              </motion.div>
+            </motion.div>
+          </section>
+
+          {/* Gallery Grid Section with Filters */}
+          <section className="w-[280vw] h-screen shrink-0 bg-gray-50 flex items-center px-12 pt-20">
+            <div className="h-[85vh] w-full">
+              {/* Header with Filters */}
+              <div className="flex items-center justify-between mb-5">
+                <div className="flex items-center gap-3">
+                  <h2 className="text-2xl font-serif font-bold text-pollocks-black">
+                    {selectedCategory === "All" ? "All Photos" : selectedCategory}
+                  </h2>
+                  <span className="px-3 py-1 bg-pollocks-blue/10 text-pollocks-blue text-sm rounded-full">
+                    {filteredImages.length} images
+                  </span>
+                </div>
+                
+                {/* Category Filters - Tab Style */}
+                <div className="flex gap-1.5 bg-white p-1.5 rounded-full shadow-sm border border-gray-100">
+                  {categories.map((category) => (
+                    <button
+                      key={category}
+                      onClick={() => setSelectedCategory(category)}
+                      className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
+                        selectedCategory === category 
+                          ? "bg-pollocks-blue text-white shadow-md" 
+                          : "text-gray-600 hover:bg-gray-100"
+                      }`}
+                    >
+                      {category}
+                    </button>
+                  ))}
+                </div>
+              </div>
+              
+              {/* Images Grid */}
+              <div className="grid grid-cols-6 auto-rows-fr gap-4 h-[calc(85vh-70px)]">
+                {filteredImages.slice(0, 12).map((image, index) => (
+                  <div
+                    key={image.id}
+                    onClick={() => setSelectedImage(image)}
+                    className={`relative overflow-hidden rounded-2xl cursor-pointer group ${
+                      index === 0 ? "col-span-2 row-span-2" : 
+                      index === 5 ? "col-span-2 row-span-2" : ""
+                    }`}
+                  >
+                    <img 
+                      src={image.image} 
+                      alt={image.title}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    <div className="absolute bottom-0 left-0 right-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                      <p className="text-pollocks-blue text-xs uppercase tracking-wider mb-1">{image.category}</p>
+                      <h3 className="text-white text-base font-serif font-bold">{image.title}</h3>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          {/* Footer */}
+          <section className="w-screen h-screen shrink-0 bg-pollocks-black flex items-center justify-center">
+            <Footer />
+          </section>
+
+        </div>
+      </div>
+
+      {/* Lightbox - Desktop */}
+      {selectedImage && (
+        <div
+          className="fixed inset-0 bg-black/95 z-[100] flex items-center justify-center p-4"
+          onClick={closeLightbox}
+        >
+          <button 
+            onClick={closeLightbox}
+            className="absolute top-8 right-8 w-12 h-12 bg-white/10 rounded-full flex items-center justify-center text-white hover:bg-white/20 transition-colors z-10"
+          >
+            <X className="w-6 h-6" />
+          </button>
+
+          {currentIndex > 0 && (
+            <button 
+              onClick={(e) => { e.stopPropagation(); prevImage(); }}
+              className="absolute left-8 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/10 rounded-full flex items-center justify-center text-white hover:bg-white/20 transition-colors z-10"
+            >
+              <ChevronLeft className="w-6 h-6" />
+            </button>
+          )}
+
+          {currentIndex < filteredImages.length - 1 && (
+            <button 
+              onClick={(e) => { e.stopPropagation(); nextImage(); }}
+              className="absolute right-8 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/10 rounded-full flex items-center justify-center text-white hover:bg-white/20 transition-colors z-10"
+            >
+              <ChevronRight className="w-6 h-6" />
+            </button>
+          )}
+
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="relative max-w-5xl w-full max-h-[80vh]"
+          >
+            <img 
+              src={selectedImage.image} 
+              alt={selectedImage.title}
+              className="w-full h-full object-contain rounded-xl"
+            />
+            <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/80 to-transparent rounded-b-xl">
+              <p className="text-pollocks-blue text-xs uppercase tracking-wider mb-1">{selectedImage.category}</p>
+              <h3 className="text-white text-xl font-serif font-bold">{selectedImage.title}</h3>
+            </div>
+          </div>
+
+          <div className="absolute bottom-6 left-1/2 -translate-x-1/2 text-white/60 text-sm font-medium">
+            {currentIndex + 1} / {filteredImages.length}
+          </div>
+        </div>
+      )}
     </main>
   );
 }

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { Button } from "./ui/Button";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
@@ -24,20 +24,18 @@ export default function Hero() {
 
   return (
     <section className="relative h-full w-full overflow-hidden bg-pollocks-black text-white">
-      {/* Background Image Carousel */}
+      {/* Background Image Carousel - Using CSS transitions */}
       <div className="absolute inset-0 z-0">
-        <AnimatePresence mode="popLayout">
-          <motion.img
-            key={currentIndex}
-            src={HERO_IMAGES[currentIndex]}
-            alt="Pollocks School Campus"
-            initial={{ opacity: 0, scale: 1.05 }}
-            animate={{ opacity: 0.5, scale: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 1.2, ease: "easeInOut" }}
-            className="absolute inset-0 h-full w-full object-cover"
+        {HERO_IMAGES.map((src, index) => (
+          <img
+            key={index}
+            src={src}
+            alt={`Pollocks School Campus ${index + 1}`}
+            className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-1000 ${
+              currentIndex === index ? "opacity-50" : "opacity-0"
+            }`}
           />
-        </AnimatePresence>
+        ))}
         <div className="absolute inset-0 bg-gradient-to-r from-pollocks-black via-pollocks-black/70 to-pollocks-black/30 z-10" />
       </div>
 
