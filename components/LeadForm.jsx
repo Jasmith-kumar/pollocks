@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
 import { Button } from "./ui/Button";
 import { Send, CheckCircle, User, Phone, Mail, BookOpen, Calendar, MapPin } from "lucide-react";
 
@@ -48,17 +47,13 @@ export default function LeadForm() {
   if (isSubmitted) {
     return (
       <div className="w-full flex items-center justify-center px-6 py-12">
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          className="text-center max-w-md mx-auto ios-glass rounded-3xl p-10"
-        >
+        <div className="text-center max-w-md mx-auto ios-glass rounded-3xl p-10 animate-fade-in">
           <div className="w-20 h-20 bg-gradient-to-br from-green-400 to-green-500 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
             <CheckCircle className="w-10 h-10 text-white" />
           </div>
           <h3 className="text-2xl font-serif font-bold text-pollocks-black mb-3">Thank You!</h3>
           <p className="text-gray-600 text-sm">We've received your enquiry and will contact you shortly.</p>
-        </motion.div>
+        </div>
       </div>
     );
   }
@@ -68,41 +63,20 @@ export default function LeadForm() {
       <div className="w-full max-w-xl mx-auto">
         {/* Header */}
         <div className="text-center mb-4">
-          <motion.span
-            initial={{ opacity: 0, y: 15 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-pollocks-blue uppercase tracking-[0.15em] text-xs font-medium block mb-1"
-          >
+          <span className="text-pollocks-blue uppercase tracking-[0.15em] text-xs font-medium block mb-1">
             Get Started
-          </motion.span>
-          <motion.h2
-            initial={{ opacity: 0, y: 15 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            className="text-xl md:text-2xl font-serif font-bold text-pollocks-black mb-1"
-          >
+          </span>
+          <h2 className="text-xl md:text-2xl font-serif font-bold text-pollocks-black mb-1">
             Start Your Journey
-          </motion.h2>
-          <motion.p
-            initial={{ opacity: 0, y: 15 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-            className="text-gray-600 text-xs"
-          >
+          </h2>
+          <p className="text-gray-600 text-xs">
             Ready to enroll? Tell us about your child.
-          </motion.p>
+          </p>
         </div>
 
         {/* Form with iOS Glass Effect */}
-        <motion.form
+        <form
           onSubmit={handleSubmit}
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.3 }}
           className="ios-glass rounded-2xl p-4 sm:p-5 relative z-10"
         >
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
@@ -263,7 +237,7 @@ export default function LeadForm() {
             {isSubmitting ? "Submitting..." : "Request Consultation"}
             <Send className="ml-2 w-4 h-4" />
           </Button>
-        </motion.form>
+        </form>
       </div>
     </div>
   );

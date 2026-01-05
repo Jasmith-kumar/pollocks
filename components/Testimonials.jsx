@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
 import { ChevronLeft, ChevronRight, Quote } from "lucide-react";
 
 const testimonials = [
@@ -60,23 +59,12 @@ export default function Testimonials() {
   return (
     <div className="w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-0 py-12 lg:py-0">
       <div className="text-center mb-8 md:mb-12">
-        <motion.span
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-pollocks-blue uppercase tracking-[0.15em] sm:tracking-[0.2em] text-xs sm:text-sm font-medium block mb-3 md:mb-4"
-        >
+        <span className="text-pollocks-blue uppercase tracking-[0.15em] sm:tracking-[0.2em] text-xs sm:text-sm font-medium block mb-3 md:mb-4">
           Testimonials
-        </motion.span>
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.1 }}
-          className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-serif font-bold text-pollocks-black"
-        >
+        </span>
+        <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-serif font-bold text-pollocks-black">
           What Parents Say
-        </motion.h2>
+        </h2>
       </div>
 
       <div className="relative">

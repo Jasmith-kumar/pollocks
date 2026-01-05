@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
 import { Button } from "./ui/Button";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
@@ -14,8 +13,10 @@ const HERO_IMAGES = [
 
 export default function Hero() {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % HERO_IMAGES.length);
     }, 5000);
@@ -48,11 +49,7 @@ export default function Hero() {
 
       {/* Bottom Content */}
       <div className="absolute bottom-0 left-0 w-full p-6 md:p-8 lg:p-10 z-20">
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-        >
+        <div className={`transition-all duration-700 ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           {/* Admission Badge */}
           <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-pollocks-blue/20 border border-pollocks-blue/30 text-pollocks-blue-light text-xs font-medium mb-4 backdrop-blur-sm">
             <span className="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse"></span>
@@ -82,7 +79,7 @@ export default function Hero() {
               </Button>
             </Link>
           </div>
-        </motion.div>
+        </div>
       </div>
 
       {/* Right Side Scroll Indicator */}
