@@ -3,13 +3,14 @@
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { motion } from "framer-motion";
 import Footer from "@/components/Footer";
 import LeadForm from "@/components/LeadForm";
 import ProcessTimeline from "@/components/ProcessTimeline";
-import { FileText, CheckCircle, Calendar, Phone, MapPin, Clock } from "lucide-react";
+import { FileText, CheckCircle, Phone, MapPin } from "lucide-react";
 
-gsap.registerPlugin(ScrollTrigger);
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 const requirements = [
   "Birth Certificate (Original & Copy)",
@@ -30,9 +31,11 @@ const branches = [
 export default function AdmissionsPage() {
   const containerRef = useRef(null);
   const wrapperRef = useRef(null);
-  const [isMobile, setIsMobile] = useState(false);
+  const [mounted, setMounted] = useState(false);
+  const [isMobile, setIsMobile] = useState(true);
 
   useEffect(() => {
+    setMounted(true);
     const checkMobile = () => setIsMobile(window.innerWidth < 1024);
     checkMobile();
     window.addEventListener('resize', checkMobile);
@@ -40,29 +43,48 @@ export default function AdmissionsPage() {
   }, []);
 
   useEffect(() => {
-    if (isMobile) return;
+    if (!mounted || isMobile) return;
 
-    let ctx = gsap.context(() => {
+    const timer = setTimeout(() => {
       const container = containerRef.current;
       const wrapper = wrapperRef.current;
       
       if (!container || !wrapper) return;
 
-      gsap.to(wrapper, {
-        x: () => -(wrapper.scrollWidth - window.innerWidth),
-        ease: "none",
-        scrollTrigger: {
-          trigger: container,
-          pin: true,
-          scrub: 1,
-          end: () => `+=${wrapper.scrollWidth}`,
-          invalidateOnRefresh: true,
-        }
-      });
-    }, containerRef);
+      const ctx = gsap.context(() => {
+        gsap.to(wrapper, {
+          x: () => -(wrapper.scrollWidth - window.innerWidth),
+          ease: "none",
+          scrollTrigger: {
+            trigger: container,
+            pin: true,
+            scrub: 1,
+            end: () => `+=${wrapper.scrollWidth}`,
+            invalidateOnRefresh: true,
+          }
+        });
+      }, container);
 
-    return () => ctx.revert();
-  }, [isMobile]);
+      containerRef.current._gsapContext = ctx;
+    }, 100);
+
+    return () => {
+      clearTimeout(timer);
+      if (containerRef.current?._gsapContext) {
+        containerRef.current._gsapContext.revert();
+      }
+      ScrollTrigger.getAll().forEach(st => st.kill());
+    };
+  }, [mounted, isMobile]);
+
+  // Show loading state until mounted
+  if (!mounted) {
+    return (
+      <main className="bg-white min-h-screen flex items-center justify-center">
+        <div className="animate-pulse text-gray-400">Loading...</div>
+      </main>
+    );
+  }
 
   // Mobile Layout
   if (isMobile) {
@@ -80,30 +102,16 @@ export default function AdmissionsPage() {
           </div>
           
           <div className="relative z-10 max-w-4xl mx-auto">
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-pollocks-blue/20 border border-pollocks-blue/30 text-pollocks-blue-light text-xs sm:text-sm font-medium mb-4"
-            >
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-pollocks-blue/20 border border-pollocks-blue/30 text-pollocks-blue-light text-xs sm:text-sm font-medium mb-4">
               <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
               Admissions Open 2025-26
-            </motion.div>
-            <motion.h1 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 }}
-              className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold mb-4"
-            >
+            </div>
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold mb-4">
               Join Pollocks School
-            </motion.h1>
-            <motion.p 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-              className="text-base sm:text-lg text-gray-300 max-w-2xl mx-auto"
-            >
+            </h1>
+            <p className="text-base sm:text-lg text-gray-300 max-w-2xl mx-auto">
               Begin your child's journey towards a bright future with quality CBSE education.
-            </motion.p>
+            </p>
           </div>
         </section>
 
@@ -113,17 +121,13 @@ export default function AdmissionsPage() {
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-serif font-bold text-pollocks-black mb-6">Required Documents</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {requirements.map((req, index) => (
-                <motion.div
+                <div
                   key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
                   className="flex items-center gap-3 p-4 bg-white rounded-xl shadow-sm"
                 >
                   <CheckCircle className="w-5 h-5 text-pollocks-blue shrink-0" />
                   <span className="text-sm sm:text-base text-gray-700 text-left">{req}</span>
-                </motion.div>
+                </div>
               ))}
             </div>
           </div>
@@ -140,12 +144,8 @@ export default function AdmissionsPage() {
             <h2 className="text-2xl sm:text-3xl font-serif font-bold text-pollocks-black mb-8 text-center">Our Branches</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
               {branches.map((branch, index) => (
-                <motion.div
+                <div
                   key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
                   className="bg-white p-5 sm:p-6 rounded-2xl shadow-lg"
                 >
                   <h3 className="text-lg sm:text-xl font-serif font-bold text-pollocks-black mb-3">{branch.name}</h3>
@@ -157,7 +157,7 @@ export default function AdmissionsPage() {
                     <Phone className="w-4 h-4 shrink-0 text-pollocks-blue" />
                     <a href={`tel:${branch.phone}`} className="hover:text-pollocks-blue transition-colors">{branch.phone}</a>
                   </div>
-                </motion.div>
+                </div>
               ))}
             </div>
           </div>
@@ -182,39 +182,25 @@ export default function AdmissionsPage() {
           {/* Hero Section */}
           <section className="w-screen h-screen shrink-0 relative bg-pollocks-navy flex items-center justify-center overflow-hidden">
             <div className="absolute inset-0 z-0">
-                <img 
-                    src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=90&w=2000&auto=format&fit=crop" 
-                    alt="Admissions Hero" 
-                    className="w-full h-full object-cover opacity-30"
-                />
-                <div className="absolute inset-0 bg-gradient-to-b from-pollocks-navy/60 to-pollocks-navy" />
+              <img 
+                src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=90&w=2000&auto=format&fit=crop" 
+                alt="Admissions Hero" 
+                className="w-full h-full object-cover opacity-30"
+              />
+              <div className="absolute inset-0 bg-gradient-to-b from-pollocks-navy/60 to-pollocks-navy" />
             </div>
             
             <div className="relative z-10 text-center px-6 max-w-4xl mx-auto">
-                <motion.div 
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-pollocks-blue/20 border border-pollocks-blue/30 text-pollocks-blue-light text-sm font-medium mb-4"
-                >
-                    <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
-                    Admissions Open 2025-26
-                </motion.div>
-                <motion.h1 
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.1 }}
-                    className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-white mb-4"
-                >
-                    Join Pollocks School
-                </motion.h1>
-                <motion.p 
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.2 }}
-                    className="text-base md:text-lg text-gray-300 max-w-2xl mx-auto"
-                >
-                    Begin your child's journey towards a bright future with quality CBSE education.
-                </motion.p>
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-pollocks-blue/20 border border-pollocks-blue/30 text-pollocks-blue-light text-sm font-medium mb-4">
+                <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
+                Admissions Open 2025-26
+              </div>
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-white mb-4">
+                Join Pollocks School
+              </h1>
+              <p className="text-base md:text-lg text-gray-300 max-w-2xl mx-auto">
+                Begin your child's journey towards a bright future with quality CBSE education.
+              </p>
             </div>
           </section>
 
@@ -222,30 +208,21 @@ export default function AdmissionsPage() {
           <section className="w-screen h-screen shrink-0 bg-gradient-to-br from-pollocks-sky to-white flex items-center justify-center px-8 pt-20">
             <div className="max-w-5xl mx-auto grid grid-cols-2 gap-10 items-center">
               <div>
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  whileInView={{ opacity: 1 }}
-                  viewport={{ once: true }}
-                  className="w-12 h-12 bg-pollocks-blue rounded-xl flex items-center justify-center mb-6"
-                >
+                <div className="w-12 h-12 bg-pollocks-blue rounded-xl flex items-center justify-center mb-6">
                   <FileText className="w-6 h-6 text-white" />
-                </motion.div>
+                </div>
                 <h2 className="text-3xl lg:text-4xl font-serif font-bold text-pollocks-black mb-4">Required Documents</h2>
                 <p className="text-base text-gray-600 mb-6">Please keep the following documents ready before starting the admission process.</p>
               </div>
               <div className="space-y-3">
                 {requirements.map((req, index) => (
-                  <motion.div
+                  <div
                     key={index}
-                    initial={{ opacity: 0, x: 20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: index * 0.1 }}
                     className="flex items-center gap-3 p-4 bg-white rounded-xl shadow-lg"
                   >
                     <CheckCircle className="w-5 h-5 text-pollocks-blue shrink-0" />
                     <span className="text-sm text-gray-700">{req}</span>
-                  </motion.div>
+                  </div>
                 ))}
               </div>
             </div>
@@ -265,12 +242,8 @@ export default function AdmissionsPage() {
               </div>
               <div className="grid grid-cols-2 gap-6">
                 {branches.map((branch, index) => (
-                  <motion.div
+                  <div
                     key={index}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: index * 0.1 }}
                     className="bg-white/5 backdrop-blur-sm p-6 rounded-2xl border border-white/10 hover:border-pollocks-blue/50 transition-colors"
                   >
                     <h3 className="text-xl font-serif font-bold mb-3">{branch.name}</h3>
@@ -282,7 +255,7 @@ export default function AdmissionsPage() {
                       <Phone className="w-5 h-5 shrink-0 text-pollocks-blue" />
                       <a href={`tel:${branch.phone}`} className="hover:text-pollocks-blue transition-colors">{branch.phone}</a>
                     </div>
-                  </motion.div>
+                  </div>
                 ))}
               </div>
             </div>

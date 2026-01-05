@@ -10,11 +10,11 @@ import TeamSection from "@/components/TeamSection";
 import Testimonials from "@/components/Testimonials";
 import StatsSection from "@/components/StatsSection";
 import Footer from "@/components/Footer";
-import { motion } from "framer-motion";
 
-gsap.registerPlugin(ScrollTrigger);
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
-// Hero Component for consistency
 function AboutHero() {
   return (
     <section className="relative min-h-screen flex items-center justify-center bg-pollocks-navy overflow-hidden py-20 lg:py-0">
@@ -28,30 +28,15 @@ function AboutHero() {
       </div>
       
       <div className="relative z-10 text-center px-4 sm:px-6 max-w-4xl mx-auto">
-        <motion.span 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="text-pollocks-blue uppercase tracking-[0.15em] sm:tracking-[0.2em] text-xs sm:text-sm font-medium block mb-3 md:mb-4"
-        >
+        <span className="text-pollocks-blue uppercase tracking-[0.15em] sm:tracking-[0.2em] text-xs sm:text-sm font-medium block mb-3 md:mb-4">
           Est. 1966
-        </motion.span>
-        <motion.h1 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif font-medium text-white mb-4 md:mb-6 leading-tight"
-        >
+        </span>
+        <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif font-medium text-white mb-4 md:mb-6 leading-tight">
           Our Story
-        </motion.h1>
-        <motion.p 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          className="text-base sm:text-lg md:text-xl text-gray-300 font-light max-w-2xl mx-auto"
-        >
+        </h1>
+        <p className="text-base sm:text-lg md:text-xl text-gray-300 font-light max-w-2xl mx-auto">
           58 years of nurturing young minds and building bright futures in Visakhapatnam.
-        </motion.p>
+        </p>
       </div>
     </section>
   );
@@ -60,9 +45,11 @@ function AboutHero() {
 export default function AboutPage() {
   const containerRef = useRef(null);
   const wrapperRef = useRef(null);
-  const [isMobile, setIsMobile] = useState(false);
+  const [mounted, setMounted] = useState(false);
+  const [isMobile, setIsMobile] = useState(true);
 
   useEffect(() => {
+    setMounted(true);
     const checkMobile = () => setIsMobile(window.innerWidth < 1024);
     checkMobile();
     window.addEventListener('resize', checkMobile);
@@ -70,66 +57,85 @@ export default function AboutPage() {
   }, []);
 
   useEffect(() => {
-    if (isMobile) return;
+    if (!mounted || isMobile) return;
 
-    let ctx = gsap.context(() => {
+    const timer = setTimeout(() => {
       const container = containerRef.current;
       const wrapper = wrapperRef.current;
       
       if (!container || !wrapper) return;
 
-      const getScrollAmount = () => {
+      const ctx = gsap.context(() => {
+        const getScrollAmount = () => {
           let scrollWidth = wrapper.scrollWidth;
           return -(scrollWidth - window.innerWidth);
-      };
+        };
 
-      gsap.to(wrapper, {
-        x: getScrollAmount,
-        ease: "none",
-        scrollTrigger: {
-          trigger: container,
-          pin: true,
-          scrub: 1,
-          snap: {
-            snapTo: (progress) => {
+        gsap.to(wrapper, {
+          x: getScrollAmount,
+          ease: "none",
+          scrollTrigger: {
+            trigger: container,
+            pin: true,
+            scrub: 1,
+            snap: {
+              snapTo: (progress) => {
                 const totalScroll = wrapper.scrollWidth - window.innerWidth;
                 const snapPoints = [];
                 
                 Array.from(wrapper.children).forEach((child) => {
-                    const start = child.offsetLeft;
-                    const width = child.offsetWidth;
-                    
-                    snapPoints.push(start / totalScroll);
+                  const start = child.offsetLeft;
+                  const width = child.offsetWidth;
+                  
+                  snapPoints.push(start / totalScroll);
 
-                    if (width > window.innerWidth) {
-                        let offset = window.innerWidth;
-                        while (offset < width) {
-                            const point = (start + offset) / totalScroll;
-                            if (point <= 1) snapPoints.push(point);
-                            offset += window.innerWidth;
-                        }
+                  if (width > window.innerWidth) {
+                    let offset = window.innerWidth;
+                    while (offset < width) {
+                      const point = (start + offset) / totalScroll;
+                      if (point <= 1) snapPoints.push(point);
+                      offset += window.innerWidth;
                     }
+                  }
                 });
                 
                 snapPoints.push(1);
                 
                 const closest = snapPoints.reduce((prev, curr) => {
-                    return Math.abs(curr - progress) < Math.abs(prev - progress) ? curr : prev;
+                  return Math.abs(curr - progress) < Math.abs(prev - progress) ? curr : prev;
                 });
 
                 return closest;
+              },
+              duration: { min: 0.2, max: 0.6 },
+              ease: "power1.inOut",
             },
-            duration: { min: 0.2, max: 0.6 },
-            ease: "power1.inOut",
-          },
-          end: () => `+=${wrapper.scrollWidth}`,
-          invalidateOnRefresh: true,
-        }
-      });
-    }, containerRef);
+            end: () => `+=${wrapper.scrollWidth}`,
+            invalidateOnRefresh: true,
+          }
+        });
+      }, container);
 
-    return () => ctx.revert();
-  }, [isMobile]);
+      containerRef.current._gsapContext = ctx;
+    }, 100);
+
+    return () => {
+      clearTimeout(timer);
+      if (containerRef.current?._gsapContext) {
+        containerRef.current._gsapContext.revert();
+      }
+      ScrollTrigger.getAll().forEach(st => st.kill());
+    };
+  }, [mounted, isMobile]);
+
+  // Show loading state until mounted
+  if (!mounted) {
+    return (
+      <main className="bg-white min-h-screen flex items-center justify-center">
+        <div className="animate-pulse text-gray-400">Loading...</div>
+      </main>
+    );
+  }
 
   // Mobile Layout
   if (isMobile) {
@@ -176,74 +182,59 @@ export default function AboutPage() {
           
           <section className="w-screen h-screen shrink-0 relative bg-pollocks-navy flex items-center justify-center overflow-hidden">
             <div className="absolute inset-0 z-0">
-                <img 
-                    src="https://images.unsplash.com/photo-1580582932707-520aed937b7b?q=90&w=2000&auto=format&fit=crop" 
-                    alt="About Hero" 
-                    className="w-full h-full object-cover opacity-30"
-                />
-                <div className="absolute inset-0 bg-gradient-to-b from-pollocks-navy/60 via-transparent to-pollocks-navy" />
+              <img 
+                src="https://images.unsplash.com/photo-1580582932707-520aed937b7b?q=90&w=2000&auto=format&fit=crop" 
+                alt="About Hero" 
+                className="w-full h-full object-cover opacity-30"
+              />
+              <div className="absolute inset-0 bg-gradient-to-b from-pollocks-navy/60 via-transparent to-pollocks-navy" />
             </div>
             
             <div className="relative z-10 text-center px-6 max-w-4xl mx-auto">
-                <motion.span 
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6 }}
-                    className="text-pollocks-blue uppercase tracking-[0.2em] text-sm font-medium block mb-4"
-                >
-                    Est. 1966
-                </motion.span>
-                <motion.h1 
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, delay: 0.2 }}
-                    className="text-4xl md:text-5xl lg:text-6xl font-serif font-medium text-white mb-4 leading-tight"
-                >
-                    Our Story
-                </motion.h1>
-                <motion.p 
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, delay: 0.4 }}
-                    className="text-base md:text-lg text-gray-300 font-light max-w-2xl mx-auto"
-                >
-                    58 years of nurturing young minds and building bright futures in Visakhapatnam.
-                </motion.p>
+              <span className="text-pollocks-blue uppercase tracking-[0.2em] text-sm font-medium block mb-4">
+                Est. 1966
+              </span>
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif font-medium text-white mb-4 leading-tight">
+                Our Story
+              </h1>
+              <p className="text-base md:text-lg text-gray-300 font-light max-w-2xl mx-auto">
+                58 years of nurturing young minds and building bright futures in Visakhapatnam.
+              </p>
             </div>
           </section>
 
           <section className="w-screen h-screen shrink-0 flex items-center justify-center bg-pollocks-sky overflow-hidden pt-20">
-             <div className="w-full h-full flex items-center overflow-y-auto lg:overflow-hidden">
-                <DirectorShowcase />
-             </div>
+            <div className="w-full h-full flex items-center overflow-y-auto lg:overflow-hidden">
+              <DirectorShowcase />
+            </div>
           </section>
 
           <section className="h-screen shrink-0 pt-20">
-             <AboutTimeline />
+            <AboutTimeline />
           </section>
 
           <section className="w-screen h-screen shrink-0 bg-pollocks-navy flex items-center justify-center pt-20">
-             <div className="w-full">
-                <StatsSection />
-             </div>
+            <div className="w-full">
+              <StatsSection />
+            </div>
           </section>
 
           <section className="w-screen h-screen shrink-0 bg-white flex items-center justify-center overflow-hidden pt-20">
-             <div className="w-full h-full flex items-center overflow-y-auto lg:overflow-hidden">
-                <TeamSection />
-             </div>
+            <div className="w-full h-full flex items-center overflow-y-auto lg:overflow-hidden">
+              <TeamSection />
+            </div>
           </section>
 
           <section className="w-screen h-screen shrink-0 bg-pollocks-navy flex items-center justify-center px-8 pt-20">
-             <div className="w-full">
-                <VideoShowcase />
-             </div>
+            <div className="w-full">
+              <VideoShowcase />
+            </div>
           </section>
 
           <section className="w-screen h-screen shrink-0 bg-white flex items-center justify-center pt-20">
-             <div className="w-full">
-                <Testimonials />
-             </div>
+            <div className="w-full">
+              <Testimonials />
+            </div>
           </section>
 
           <section id="footer-section" className="w-screen h-screen shrink-0 bg-pollocks-black flex items-center justify-center">

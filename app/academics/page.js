@@ -3,86 +3,83 @@
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { motion } from "framer-motion";
 import Footer from "@/components/Footer";
 import { Check, BookOpen, Users, Trophy, FlaskConical } from "lucide-react";
 import Link from "next/link";
 
-gsap.registerPlugin(ScrollTrigger);
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 const programsList = [
-    {
-        title: "Pre-Primary Education",
-        description: "Our Pre-Primary program (Pre-Nursery to UKG) focuses on holistic development through play-based learning, building a strong foundation for future academic success.",
-        image: "https://images.unsplash.com/photo-1587654780291-39c9404d746b?q=80&w=2000&auto=format&fit=crop",
-        features: ["Play-Based Learning", "Motor Skills Development", "Social Skills", "Early Literacy"],
-        icon: Users,
-    },
-    {
-        title: "Primary School",
-        description: "Classes 1-5 follow a comprehensive CBSE curriculum designed to develop conceptual understanding, critical thinking, and a love for learning.",
-        image: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?q=80&w=2000&auto=format&fit=crop",
-        features: ["CBSE Curriculum", "Smart Classrooms", "Activity-Based Learning", "Value Education"],
-        icon: BookOpen,
-    },
-    {
-        title: "Middle School",
-        description: "Classes 6-8 bridge primary and secondary education, preparing students for higher academic challenges while developing life skills and leadership qualities.",
-        image: "https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=2000&auto=format&fit=crop",
-        features: ["Science Labs", "Computer Education", "Sports Training", "Personality Development"],
-        icon: FlaskConical,
-    },
-    {
-        title: "Secondary School",
-        description: "Classes 9-10 focus on comprehensive CBSE board exam preparation while ensuring students develop the skills needed for higher education and beyond.",
-        image: "https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?q=80&w=2000&auto=format&fit=crop",
-        features: ["Board Exam Prep", "Career Guidance", "Competitive Exams", "Research Projects"],
-        icon: Trophy,
-    }
+  {
+    title: "Pre-Primary Education",
+    description: "Our Pre-Primary program (Pre-Nursery to UKG) focuses on holistic development through play-based learning, building a strong foundation for future academic success.",
+    image: "https://images.unsplash.com/photo-1587654780291-39c9404d746b?q=80&w=2000&auto=format&fit=crop",
+    features: ["Play-Based Learning", "Motor Skills Development", "Social Skills", "Early Literacy"],
+    icon: Users,
+  },
+  {
+    title: "Primary School",
+    description: "Classes 1-5 follow a comprehensive CBSE curriculum designed to develop conceptual understanding, critical thinking, and a love for learning.",
+    image: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?q=80&w=2000&auto=format&fit=crop",
+    features: ["CBSE Curriculum", "Smart Classrooms", "Activity-Based Learning", "Value Education"],
+    icon: BookOpen,
+  },
+  {
+    title: "Middle School",
+    description: "Classes 6-8 bridge primary and secondary education, preparing students for higher academic challenges while developing life skills and leadership qualities.",
+    image: "https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=2000&auto=format&fit=crop",
+    features: ["Science Labs", "Computer Education", "Sports Training", "Personality Development"],
+    icon: FlaskConical,
+  },
+  {
+    title: "Secondary School",
+    description: "Classes 9-10 focus on comprehensive CBSE board exam preparation while ensuring students develop the skills needed for higher education and beyond.",
+    image: "https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?q=80&w=2000&auto=format&fit=crop",
+    features: ["Board Exam Prep", "Career Guidance", "Competitive Exams", "Research Projects"],
+    icon: Trophy,
+  }
 ];
 
 function ProgramCard({ program, index }) {
-    const Icon = program.icon;
-    
-    return (
-        <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: index * 0.1 }}
-            className="bg-white rounded-2xl md:rounded-3xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow"
-        >
-            <div className="relative h-48 sm:h-56 md:h-64">
-                <img src={program.image} alt={program.title} className="w-full h-full object-cover" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                <div className="absolute bottom-4 left-4">
-                    <div className="w-12 h-12 bg-pollocks-blue rounded-xl flex items-center justify-center">
-                        <Icon className="w-6 h-6 text-white" />
-                    </div>
-                </div>
+  const Icon = program.icon;
+  
+  return (
+    <div className="bg-white rounded-2xl md:rounded-3xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
+      <div className="relative h-48 sm:h-56 md:h-64">
+        <img src={program.image} alt={program.title} className="w-full h-full object-cover" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+        <div className="absolute bottom-4 left-4">
+          <div className="w-12 h-12 bg-pollocks-blue rounded-xl flex items-center justify-center">
+            <Icon className="w-6 h-6 text-white" />
+          </div>
+        </div>
+      </div>
+      <div className="p-4 sm:p-6">
+        <h3 className="text-xl sm:text-2xl font-serif font-bold text-pollocks-black mb-3">{program.title}</h3>
+        <p className="text-gray-600 text-sm sm:text-base mb-4 leading-relaxed">{program.description}</p>
+        <div className="grid grid-cols-2 gap-2">
+          {program.features.map((feature, idx) => (
+            <div key={idx} className="flex items-center gap-2">
+              <Check size={14} className="text-pollocks-blue shrink-0" />
+              <span className="text-xs sm:text-sm text-gray-700">{feature}</span>
             </div>
-            <div className="p-4 sm:p-6">
-                <h3 className="text-xl sm:text-2xl font-serif font-bold text-pollocks-black mb-3">{program.title}</h3>
-                <p className="text-gray-600 text-sm sm:text-base mb-4 leading-relaxed">{program.description}</p>
-                <div className="grid grid-cols-2 gap-2">
-                    {program.features.map((feature, idx) => (
-                        <div key={idx} className="flex items-center gap-2">
-                            <Check size={14} className="text-pollocks-blue shrink-0" />
-                            <span className="text-xs sm:text-sm text-gray-700">{feature}</span>
-                        </div>
-                    ))}
-                </div>
-            </div>
-        </motion.div>
-    );
+          ))}
+        </div>
+      </div>
+    </div>
+  );
 }
 
 export default function AcademicsPage() {
   const containerRef = useRef(null);
   const wrapperRef = useRef(null);
-  const [isMobile, setIsMobile] = useState(false);
+  const [mounted, setMounted] = useState(false);
+  const [isMobile, setIsMobile] = useState(true);
 
   useEffect(() => {
+    setMounted(true);
     const checkMobile = () => setIsMobile(window.innerWidth < 1024);
     checkMobile();
     window.addEventListener('resize', checkMobile);
@@ -90,29 +87,48 @@ export default function AcademicsPage() {
   }, []);
 
   useEffect(() => {
-    if (isMobile) return;
+    if (!mounted || isMobile) return;
 
-    let ctx = gsap.context(() => {
+    const timer = setTimeout(() => {
       const container = containerRef.current;
       const wrapper = wrapperRef.current;
       
       if (!container || !wrapper) return;
 
-      gsap.to(wrapper, {
-        x: () => -(wrapper.scrollWidth - window.innerWidth),
-        ease: "none",
-        scrollTrigger: {
-          trigger: container,
-          pin: true,
-          scrub: 1,
-          end: () => `+=${wrapper.scrollWidth}`,
-          invalidateOnRefresh: true,
-        }
-      });
-    }, containerRef);
+      const ctx = gsap.context(() => {
+        gsap.to(wrapper, {
+          x: () => -(wrapper.scrollWidth - window.innerWidth),
+          ease: "none",
+          scrollTrigger: {
+            trigger: container,
+            pin: true,
+            scrub: 1,
+            end: () => `+=${wrapper.scrollWidth}`,
+            invalidateOnRefresh: true,
+          }
+        });
+      }, container);
 
-    return () => ctx.revert();
-  }, [isMobile]);
+      containerRef.current._gsapContext = ctx;
+    }, 100);
+
+    return () => {
+      clearTimeout(timer);
+      if (containerRef.current?._gsapContext) {
+        containerRef.current._gsapContext.revert();
+      }
+      ScrollTrigger.getAll().forEach(st => st.kill());
+    };
+  }, [mounted, isMobile]);
+
+  // Show loading state until mounted
+  if (!mounted) {
+    return (
+      <main className="bg-white min-h-screen flex items-center justify-center">
+        <div className="animate-pulse text-gray-400">Loading...</div>
+      </main>
+    );
+  }
 
   // Mobile Layout
   if (isMobile) {
@@ -130,29 +146,15 @@ export default function AcademicsPage() {
           </div>
           
           <div className="relative z-10 max-w-4xl mx-auto">
-            <motion.span 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="text-pollocks-blue uppercase tracking-[0.2em] text-xs sm:text-sm font-medium block mb-3"
-            >
+            <span className="text-pollocks-blue uppercase tracking-[0.2em] text-xs sm:text-sm font-medium block mb-3">
               CBSE Curriculum
-            </motion.span>
-            <motion.h1 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 }}
-              className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold mb-4"
-            >
+            </span>
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold mb-4">
               Our Academics
-            </motion.h1>
-            <motion.p 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-              className="text-base sm:text-lg text-gray-300 max-w-2xl mx-auto"
-            >
+            </h1>
+            <p className="text-base sm:text-lg text-gray-300 max-w-2xl mx-auto">
               Quality education from Pre-Nursery to 10th Standard, nurturing young minds for a bright future.
-            </motion.p>
+            </p>
           </div>
         </section>
 
@@ -185,38 +187,24 @@ export default function AcademicsPage() {
           {/* Hero Section */}
           <section className="w-screen h-screen shrink-0 relative bg-pollocks-navy flex items-center justify-center overflow-hidden">
             <div className="absolute inset-0 z-0">
-                <img 
-                    src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=90&w=2000&auto=format&fit=crop" 
-                    alt="Academics Hero" 
-                    className="w-full h-full object-cover opacity-30"
-                />
-                <div className="absolute inset-0 bg-gradient-to-b from-pollocks-navy/60 to-pollocks-navy" />
+              <img 
+                src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=90&w=2000&auto=format&fit=crop" 
+                alt="Academics Hero" 
+                className="w-full h-full object-cover opacity-30"
+              />
+              <div className="absolute inset-0 bg-gradient-to-b from-pollocks-navy/60 to-pollocks-navy" />
             </div>
             
             <div className="relative z-10 text-center px-6 max-w-4xl mx-auto">
-                <motion.span 
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="text-pollocks-blue uppercase tracking-[0.2em] text-sm font-medium block mb-4"
-                >
-                    CBSE Curriculum
-                </motion.span>
-                <motion.h1 
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.1 }}
-                    className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-white mb-4"
-                >
-                    Our Academics
-                </motion.h1>
-                <motion.p 
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.2 }}
-                    className="text-base md:text-lg text-gray-300 max-w-2xl mx-auto"
-                >
-                    Quality education from Pre-Nursery to 10th Standard, nurturing young minds for a bright future.
-                </motion.p>
+              <span className="text-pollocks-blue uppercase tracking-[0.2em] text-sm font-medium block mb-4">
+                CBSE Curriculum
+              </span>
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-white mb-4">
+                Our Academics
+              </h1>
+              <p className="text-base md:text-lg text-gray-300 max-w-2xl mx-auto">
+                Quality education from Pre-Nursery to 10th Standard, nurturing young minds for a bright future.
+              </p>
             </div>
           </section>
 
@@ -267,9 +255,9 @@ export default function AcademicsPage() {
 
           {/* Footer */}
           <section id="footer-section" className="w-screen h-screen shrink-0 bg-pollocks-black flex items-center justify-center">
-             <div className="w-full h-full flex items-center overflow-y-auto lg:overflow-hidden">
-                <Footer />
-             </div>
+            <div className="w-full h-full flex items-center overflow-y-auto lg:overflow-hidden">
+              <Footer />
+            </div>
           </section>
 
         </div>
